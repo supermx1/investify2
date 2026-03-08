@@ -1,0 +1,1 @@
+zip -r deploy.zip . -x "node_modules/*" ".git/*" ".idea/*" ".vscode/*" "storage/framework/cache/*" "storage/logs/*"

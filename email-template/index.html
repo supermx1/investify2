@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no">
+    <title>Investify</title>
+
+    <!-- Google Fonts -->
+    <!--[if !mso]><!-->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!--<![endif]-->
+
+    <!--[if mso]>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:AllowPNG/>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
+
+    <!--[if mso]>
+    <style>
+        * { font-family: Arial, sans-serif !important; }
+        .serif { font-family: 'Times New Roman', serif !important; }
+    </style>
+    <![endif]-->
+
+    <style>
+        /* ===== RESET ===== */
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        * {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+            box-sizing: border-box;
+        }
+
+        table, td {
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
+            border-collapse: collapse !important;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* ===== DESIGN TOKENS ===== */
+        :root {
+            --primary: #4f46e5; /* Indigo 600 approx from oklch */
+            --primary-foreground: #ffffff;
+            --background: #f8fafc;
+            --foreground: #0f172a;
+            --card: #ffffff;
+            --muted: #64748b;
+            --accent: #f1f5f9;
+            --border: #e2e8f0;
+            --radius: 10px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            .mobile-padding {
+                padding-left: 24px !important;
+                padding-right: 24px !important;
+            }
+
+            .mobile-text-size {
+                font-size: 24px !important;
+                line-height: 32px !important;
+            }
+        }
+    </style>
+</head>
+
+<body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #0f172a; -webkit-font-smoothing: antialiased;">
+
+    <!-- PREVIEW TEXT (hidden) -->
+    <div style="display: none; max-height: 0px; overflow: hidden;">
+        {{previewText}}
+        &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847;
+    </div>
+
+    <!-- OUTER WRAPPER -->
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f8fafc;">
+        <tr>
+            <td align="center" valign="top" style="padding: 40px 10px;">
+
+                <!-- EMAIL CONTAINER (600px) -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" class="email-container" style="max-width: 600px; width: 600px;">
+
+                    <!-- ========== HEADER ========== -->
+                    <tr>
+                        <td align="left" style="padding: 0 0 32px 0;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                    <td style="background-color: #4f46e5; border-radius: 8px; width: 32px; height: 32px; text-align: center; vertical-align: middle;">
+                                        <span style="color: #ffffff; font-weight: 700; font-size: 16px;">I</span>
+                                    </td>
+                                    <td style="padding-left: 12px;">
+                                        <span style="font-size: 18px; font-weight: 700; color: #0f172a; letter-spacing: -0.5px;">
+                                            Investify
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- ========== MAIN CONTENT CARD ========== -->
+                    <tr>
+                        <td style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 48px 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);" class="mobile-padding">
+
+                            <!-- Heading -->
+                            <h1 style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #0f172a; margin: 0 0 16px 0; line-height: 1.2;" class="mobile-text-size">
+                                {{heading}}
+                            </h1>
+
+                            <!-- Subheading -->
+                            <p style="font-size: 16px; color: #64748b; margin: 0 0 32px 0; line-height: 1.6;">
+                                {{subheading}}
+                            </p>
+
+                            <!-- Divider -->
+                            <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 0 0 32px 0;">
+
+                            <!-- Body Text -->
+                            <p style="font-size: 15px; color: #334155; margin: 0 0 32px 0; line-height: 1.7;">
+                                {{bodyText}}
+                            </p>
+
+                            <!-- CTA Button -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 40px 0;">
+                                <tr>
+                                    <td align="center" style="border-radius: 10px; background-color: #4f46e5;">
+                                        <a href="{{ctaUrl}}" target="_blank" style="display: inline-block; font-size: 14px; font-weight: 600; color: #ffffff; padding: 14px 32px; text-decoration: none; border-radius: 10px;">
+                                            {{ctaText}}
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Secondary Text -->
+                            <p style="font-size: 14px; color: #64748b; margin: 0; line-height: 1.7;">
+                                {{additionalText}}
+                            </p>
+
+                        </td>
+                    </tr>
+
+                    <!-- ========== FOOTER ========== -->
+                    <tr>
+                        <td style="padding: 48px 40px 0 40px;" class="mobile-padding">
+
+                            <!-- Footer Navigation -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 24px;">
+                                <tr>
+                                    <td align="center" style="font-size: 13px; font-weight: 500;">
+                                        <a href="{{siteUrl}}/about" style="color: #64748b; text-decoration: none; padding: 0 12px;">About</a>
+                                        <a href="{{siteUrl}}/services" style="color: #64748b; text-decoration: none; padding: 0 12px;">Services</a>
+                                        <a href="{{siteUrl}}/insights" style="color: #64748b; text-decoration: none; padding: 0 12px;">Insights</a>
+                                        <a href="{{siteUrl}}/contact" style="color: #64748b; text-decoration: none; padding: 0 12px;">Contact</a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Social Icons -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-bottom: 24px;">
+                                <tr>
+                                    <td style="padding: 0 10px;">
+                                        <a href="{{linkedInUrl}}"><img src="https://img.icons8.com/ios-glyphs/30/64748b/linkedin.png" width="20" height="20" alt="LinkedIn"></a>
+                                    </td>
+                                    <td style="padding: 0 10px;">
+                                        <a href="{{twitterUrl}}"><img src="https://img.icons8.com/ios-glyphs/30/64748b/twitterx--v1.png" width="20" height="20" alt="Twitter"></a>
+                                    </td>
+                                    <td style="padding: 0 10px;">
+                                        <a href="{{instagramUrl}}"><img src="https://img.icons8.com/ios-glyphs/30/64748b/instagram-new--v1.png" width="20" height="20" alt="Instagram"></a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Business Address -->
+                            <p style="font-size: 12px; color: #94a3b8; text-align: center; line-height: 1.8; margin: 0 0 24px 0;">
+                                100 Bishopsgate, Floor 32, London, EC2M 1GT, United Kingdom<br>
+                                <a href="tel:{{phone}}" style="color: #4f46e5; text-decoration: none;">{{phone}}</a>
+                                &nbsp;&bull;&nbsp;
+                                <a href="mailto:{{email}}" style="color: #4f46e5; text-decoration: none;">{{email}}</a>
+                            </p>
+
+                            <!-- Copyright & Legal -->
+                            <p style="font-size: 11px; color: #94a3b8; text-align: center; line-height: 1.6; margin: 0 0 32px 0;">
+                                &copy; {{year}} Investify Group Holdings. All rights reserved.<br>
+                                <a href="{{siteUrl}}/privacy" style="color: #94a3b8; text-decoration: underline;">Privacy Policy</a> &nbsp;
+                                <a href="{{siteUrl}}/terms" style="color: #94a3b8; text-decoration: underline;">Terms of Use</a> &nbsp;
+                                <a href="{{unsubscribeUrl}}" style="color: #94a3b8; text-decoration: underline;">Unsubscribe</a>
+                            </p>
+
+                            <!-- Risk Disclaimer -->
+                            <p style="font-size: 10px; color: #cbd5e1; text-align: center; line-height: 1.6; max-width: 480px; margin: 0 auto;">
+                                Investing involves risk, including possible loss of principal. This email is for informational purposes only and should not be considered personalized investment advice.
+                            </p>
+
+                        </td>
+                    </tr>
+
+                </table>
+                <!-- /EMAIL CONTAINER -->
+
+            </td>
+        </tr>
+    </table>
+    <!-- /OUTER WRAPPER -->
+
+</body>
+</html>
