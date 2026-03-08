@@ -77,7 +77,8 @@ How to refer friends:
 
 ## YOU CAN ADD MORE INSTRUCTIONS HERE LIKE BENEFITS OF INVESTING, I NOT SABI BUT YOU CAN MORE DOCS HERE LIKE THAT BENEFIT PAGE IN PRP LIFE.
 
-
+## I.E
+Tokens are called Investify Tokens and are valued at £2 per token.
 
 
 
