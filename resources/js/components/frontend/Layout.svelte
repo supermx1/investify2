@@ -1,6 +1,7 @@
 <script>
     import Header from './Header.svelte';
     import Footer from './Footer.svelte';
+    import CookieConsent from './CookieConsent.svelte';
     import { Toaster } from 'svelte-sonner';
 
     let { children, header, footer } = $props();
@@ -24,4 +25,5 @@
     {/if}
 </div>
 
+<CookieConsent />
 <Toaster richColors position="bottom-right" />

@@ -1,232 +1,140 @@
-<script>
+<script lang="ts">
     import Layout from '@/components/frontend/Layout.svelte';
     import { Link } from '@inertiajs/svelte';
+    import { animate, splitText, heroParallax, magnetic } from '@/lib/gsap';
+
+    let activeStep = $state<string | null>(null);
+
+    const steps = [
+        { id: 'discovery', title: 'Discovery & Onboarding', desc: 'We begin with a comprehensive review of your financial position, goals, risk tolerance, and long-term aspirations.' },
+        { id: 'strategy', title: 'Strategy Design', desc: 'Our investment committee builds a bespoke allocation strategy aligned to your unique objectives and timeline.' },
+        { id: 'execution', title: 'Execution & Deployment', desc: 'Institutional-grade portfolio construction with access to opportunities unavailable through conventional channels.' },
+        { id: 'review', title: 'Ongoing Review', desc: 'Regular performance reviews with transparent reporting and proactive rebalancing as conditions evolve.' },
+    ];
 </script>
 
 <Layout>
-    <!-- Hero Section -->
-    <section class="relative pt-32 pb-32 overflow-hidden bg-background-light dark:bg-background-dark">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
-                <!-- Text Content -->
-                <div class="lg:col-span-5 text-center lg:text-left mb-12 lg:mb-0">
-                    <!-- Breadcrumb -->
-                    <nav
-                        in:fade={{ duration: 800, delay: 100 }}
-                        class="flex items-center space-x-2 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-6 font-display"
-                    >
-                        <a class="hover:text-primary dark:hover:text-accent-gold transition-colors" href="/">Home</a>
-                        <span class="text-gray-300 dark:text-gray-600">/</span>
-                        <a class="hover:text-primary dark:hover:text-accent-gold transition-colors" href="/">Investments</a>
-                        <span class="text-gray-300 dark:text-gray-600">/</span>
-                        <span class="text-primary dark:text-accent-gold font-bold">Wealth Management</span>
-                    </nav>
-
-                    <h1
-                        in:fly={{ y: 20, duration: 800, delay: 300 }}
-                        class="text-5xl md:text-6xl font-serif font-medium text-primary dark:text-white leading-tight mb-6"
-                    >
-                        Preserving Legacy, <br />
-                        <span class="text-accent-gold italic">Architecting Future.</span>
-                    </h1>
-                    <p class="mt-4 text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-lg mx-auto lg:mx-0 font-light">
-                        Exclusive wealth management strategies tailored for the modern elite. We blend traditional stewardship with cutting-edge
-                        financial architecture.
-                    </p>
-                    <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <Link
-                            href="/contact-us"
-                            class="px-8 py-3.5 text-base font-medium rounded-full text-white bg-primary hover:bg-primary-light shadow-lg shadow-primary/25 transition-all text-center flex items-center justify-center"
-                        >
-                            Explore Services
-                        </Link>
-                        <Link
-                            href="/login"
-                            class="px-8 py-3.5 text-base font-medium rounded-full text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all text-center flex items-center justify-center"
-                        >
-                            Client Login
-                        </Link>
-                    </div>
-                    <!-- Trust Indicators -->
-                    <div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex items-center justify-center lg:justify-start gap-8">
-                        <div>
-                            <p class="text-3xl font-serif text-slate-900 dark:text-white">$12B+</p>
-                            <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Assets Managed</p>
-                        </div>
-                        <div class="w-px h-10 bg-slate-200 dark:bg-slate-700"></div>
-                        <div>
-                            <p class="text-3xl font-serif text-slate-900 dark:text-white">35+</p>
-                            <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Years Experience</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Hero Visual -->
-                <div class="lg:col-span-7 relative">
-                    <div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 group">
-                        <!-- Main Hero Image -->
-                        <img
-                            alt="Modern city skyline with glass skyscrapers reflecting blue sky"
-                            class="w-full h-[600px] object-cover object-center transform transition-transform duration-700 group-hover:scale-105"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-muTqG_LXXWSZYz0IRwLKM2tVWxdTONtPJ7YIxV56c_SdfaPT8r3Mi7UuzJX167CcHuyKA37gIijI0FBy2wKvWZz9cevtah5TAD7-HstnHBNIKblGNQ5-zGjVtiB25Y0212AEcU0xC4gPJ7YCv6nzY-fDeaY4yNY5-G5Sox1OXSodWSXwg634E6T_s2FZI01hM0w3MldGLST-dKQOqV2kFpqIKVNMKtDcZ4nEv9b5IzG6_tW_iffdylUgm8H9DrVF0yTnbvi--PQ"
-                        />
-                        <!-- Floating Performance Card -->
-                        <div
-                            class="absolute -bottom-8 -left-8 md:bottom-10 md:left-8 bg-white dark:bg-slate-800 p-6 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 max-w-xs w-full animate-fade-in-up"
-                        >
-                            <div class="flex justify-between items-center mb-4">
-                                <h3 class="text-sm font-semibold text-slate-700 dark:text-slate-200">Portfolio Performance</h3>
-                                <span
-                                    class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
-                                >
-                                    YTD
-                                </span>
-                            </div>
-                            <div class="flex items-end gap-2 mb-4">
-                                <span class="text-3xl font-bold text-slate-900 dark:text-white">+12.4%</span>
-                                <span class="text-sm font-medium text-success-green mb-1 flex items-center">
-                                    <span class="material-icons text-sm mr-0.5">trending_up</span> Return
-                                </span>
-                            </div>
-                            <!-- Clean Line Chart Visualization -->
-                            <div class="h-16 flex items-end gap-1">
-                                <div
-                                    class="w-1/6 bg-slate-100 dark:bg-slate-700 h-[40%] rounded-t-sm relative overflow-hidden group-hover:h-[45%] transition-all duration-500"
-                                >
-                                    <div class="absolute bottom-0 w-full h-full bg-primary/20"></div>
-                                </div>
-                                <div
-                                    class="w-1/6 bg-slate-100 dark:bg-slate-700 h-[55%] rounded-t-sm relative overflow-hidden group-hover:h-[60%] transition-all duration-500 delay-75"
-                                >
-                                    <div class="absolute bottom-0 w-full h-full bg-primary/30"></div>
-                                </div>
-                                <div
-                                    class="w-1/6 bg-slate-100 dark:bg-slate-700 h-[50%] rounded-t-sm relative overflow-hidden group-hover:h-[52%] transition-all duration-500 delay-100"
-                                >
-                                    <div class="absolute bottom-0 w-full h-full bg-primary/40"></div>
-                                </div>
-                                <div
-                                    class="w-1/6 bg-slate-100 dark:bg-slate-700 h-[70%] rounded-t-sm relative overflow-hidden group-hover:h-[75%] transition-all duration-500 delay-150"
-                                >
-                                    <div class="absolute bottom-0 w-full h-full bg-primary/60"></div>
-                                </div>
-                                <div
-                                    class="w-1/6 bg-slate-100 dark:bg-slate-700 h-[85%] rounded-t-sm relative overflow-hidden group-hover:h-[90%] transition-all duration-500 delay-200"
-                                >
-                                    <div class="absolute bottom-0 w-full h-full bg-primary/80"></div>
-                                </div>
-                                <div class="w-1/6 bg-success-green h-[95%] rounded-t-sm relative shadow-[0_0_10px_rgba(16,185,129,0.4)]"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Decorative graphic -->
-                    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10"></div>
-                </div>
+    <!-- TEMPLATE A: Editorial split hero with side-by-side image + text -->
+    <section class="relative min-h-screen overflow-hidden bg-primary">
+        <img use:heroParallax={0.4} src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1600" alt="Wealth management" class="absolute inset-0 h-full w-full object-cover opacity-40" />
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/50 to-transparent"></div>
+        <div class="relative z-10 flex min-h-screen flex-col justify-between px-6 pb-16 pt-24 lg:px-20">
+            <div>
+                <nav use:animate={{ type: 'fadeUp', delay: 0.1 }} class="mb-8 flex items-center gap-2 text-xs text-primary-foreground/40">
+                    <Link href="/" class="hover:text-primary-foreground/70 transition-colors">Home</Link>
+                    <span>/</span>
+                    <span class="text-primary-foreground/70">Wealth Management</span>
+                </nav>
+                <p use:animate={{ type: 'fadeUp', delay: 0.2 }} class="editorial-label-light mb-6">Verticals</p>
+                <h1 use:splitText={{ delay: 0.4 }} class="editorial-heading max-w-3xl text-5xl font-semibold text-primary-foreground sm:text-6xl lg:text-7xl">
+                    Preserving Legacy, Architecting Future
+                </h1>
             </div>
-        </div>
-    </section>
-
-    <!-- Bento Grid Section -->
-    <section class="py-24 bg-white dark:bg-slate-900 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-serif text-slate-900 dark:text-white mb-4">How We Operate</h2>
-                <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
-                    Our methodology is disciplined, transparent, and built entirely around your specific life goals.
+            <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+                <p use:animate={{ type: 'fadeUp', delay: 0.8 }} class="max-w-md text-sm leading-relaxed text-primary-foreground/60">
+                    Comprehensive wealth management for high-net-worth individuals and families. We bring institutional rigor to personal portfolio construction.
                 </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Step 1: Discovery -->
-                <div
-                    class="bg-background-light dark:bg-background-dark p-8 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
-                >
-                    <div
-                        class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors"
-                    >
-                        <span class="material-icons">search</span>
+                <div use:animate={{ type: 'stagger', stagger: 0.1 }} class="flex gap-12 text-right">
+                    <div>
+                        <p class="text-2xl font-semibold text-primary-foreground">$12B+</p>
+                        <p class="text-xs text-primary-foreground/40">Assets Under Management</p>
                     </div>
-                    <h3 class="text-xl font-serif text-slate-900 dark:text-white mb-3">01. Discovery</h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-                        We begin by mapping your unique financial DNA, understanding your aspirations, risk tolerance, and legacy goals.
-                    </p>
-                </div>
-                <!-- Step 2: Strategy -->
-                <div
-                    class="bg-background-light dark:bg-background-dark p-8 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
-                >
-                    <div
-                        class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors"
-                    >
-                        <span class="material-icons">architecture</span>
+                    <div>
+                        <p class="text-2xl font-semibold text-primary-foreground">35+</p>
+                        <p class="text-xs text-primary-foreground/40">Years Experience</p>
                     </div>
-                    <h3 class="text-xl font-serif text-slate-900 dark:text-white mb-3">02. Strategy</h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-                        Our team crafts tailored asset allocation models designed to withstand volatility and capture long-term growth.
-                    </p>
-                </div>
-                <!-- Step 3: Execution -->
-                <div
-                    class="bg-background-light dark:bg-background-dark p-8 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
-                >
-                    <div
-                        class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors"
-                    >
-                        <span class="material-icons">bolt</span>
-                    </div>
-                    <h3 class="text-xl font-serif text-slate-900 dark:text-white mb-3">03. Execution</h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-                        Seamless deployment of capital across global markets using institutional-grade platforms and access.
-                    </p>
-                </div>
-                <!-- Step 4: Review -->
-                <div
-                    class="bg-background-light dark:bg-background-dark p-8 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
-                >
-                    <div
-                        class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors"
-                    >
-                        <span class="material-icons">sync</span>
-                    </div>
-                    <h3 class="text-xl font-serif text-slate-900 dark:text-white mb-3">04. Review</h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-                        Continuous optimization and reporting ensures your strategy evolves alongside your life and the market landscape.
-                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Feature Highlight Section (Visual Balance) -->
-    <section class="py-24 bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:grid lg:grid-cols-2 lg:gap-24 items-center">
-                <div class="relative order-2 lg:order-1">
-                    <div class="absolute inset-0 bg-primary/5 rounded-2xl transform rotate-3 scale-105 -z-10"></div>
-                    <img
-                        alt="Meeting room with glass walls and executive team discussing"
-                        class="rounded-xl shadow-lg border border-white dark:border-slate-700 w-full object-cover h-96"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0PHI7X3wQ-6A9N4D0F97zFjG5zNeGGNdcvtUZsm-NxYxjD3GHs2YfJKuqHMjOuTvAr1psYVMWcMlBp6qGE-Yo5japjFpAfWGYSTbc9Fq74wW-0Wytt0vu_nAPk2GPiehlVFlqd80KY101FT90LwM60alNtJ7YC8TNsF-5ti8MRMhdw-v1XfPoW7LUCAFqSBeuprMSLDZONUrdEvLoNE9rWCzgw1n-YNqZmZMKIGZ5eKjaBgMDCuX7r7PrZCwgd01rFdz7PtR5KAI"
-                    />
+    <!-- Image + text intro -->
+    <section class="py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
+                <div use:animate={{ type: 'reveal' }} class="aspect-[4/3] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=800" alt="Client meeting" class="h-full w-full object-cover" />
                 </div>
-                <div class="order-1 lg:order-2 mb-12 lg:mb-0">
-                    <h2 class="text-3xl md:text-4xl font-serif text-slate-900 dark:text-white mb-6">Institutional Grade Access for Individuals</h2>
-                    <p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
-                        We open doors that are typically closed. From private equity to direct real estate investment, our clients gain access to the
-                        same opportunities as major endowments and pension funds.
+                <div use:animate={{ type: 'fadeRight', delay: 0.2 }}>
+                    <p class="editorial-label mb-6">Our Philosophy</p>
+                    <h2 class="editorial-heading text-4xl font-semibold text-foreground sm:text-5xl">
+                        Institutional grade access for the individual investor
+                    </h2>
+                    <p class="mt-6 text-sm leading-relaxed text-muted-foreground max-w-md">
+                        Unlike traditional investment firms, we are not restricted by holding periods, allowing us to pursue investments that align with our investment philosophy.
                     </p>
-                    <ul class="space-y-4">
-                        <li class="flex items-start">
-                            <span class="material-icons text-primary mr-3 mt-0.5">check_circle</span>
-                            <span class="text-slate-700 dark:text-slate-300">Exclusive Private Market Deals</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="material-icons text-primary mr-3 mt-0.5">check_circle</span>
-                            <span class="text-slate-700 dark:text-slate-300">Tax-Optimized Estate Planning</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="material-icons text-primary mr-3 mt-0.5">check_circle</span>
-                            <span class="text-slate-700 dark:text-slate-300">Global Philanthropic Strategy</span>
-                        </li>
-                    </ul>
+                    <Link href="/contact-us" class="mt-8 inline-flex items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all">
+                        Schedule a consultation →
+                    </Link>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2-column features with border-left accent -->
+    <section class="border-t border-border/40 py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <p use:animate={{ type: 'fadeUp' }} class="editorial-label mb-16">What Sets Us Apart</p>
+            <div use:animate={{ type: 'stagger', stagger: 0.1 }} class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+                {#each [
+                    { title: 'Bespoke Portfolios', body: 'No two clients are alike. Every portfolio is purpose-built to reflect your unique circumstances and objectives.' },
+                    { title: 'Transparent Reporting', body: 'Real-time access to your full portfolio with institutional-quality performance attribution and risk analytics.' },
+                    { title: 'Integrated Planning', body: 'Seamless coordination with tax, estate, and legal advisors for a truly holistic wealth strategy.' },
+                    { title: 'Direct Market Access', body: 'Unfiltered access to primary and secondary markets across equities, fixed income, and alternatives.' },
+                    { title: 'Independent Research', body: 'Our in-house team produces proprietary analysis free from conflicts of interest common in the industry.' },
+                    { title: 'Tax Optimisation', body: 'Active tax-loss harvesting and structuring to maximise after-tax returns across all jurisdictions.' },
+                ] as feature}
+                    <div class="border-l-2 border-primary pl-6">
+                        <h3 class="text-base font-semibold text-foreground">{feature.title}</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{feature.body}</p>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </section>
+
+    <!-- Full-width quote band -->
+    <section class="bg-muted/30 py-20">
+        <div class="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+            <p use:splitText class="editorial-heading text-2xl font-semibold text-foreground sm:text-3xl lg:text-4xl">
+                "The best investment you can make is an investment in yourself and in the quality of the people around you."
+            </p>
+            <p use:animate={{ type: 'fadeUp', delay: 0.4 }} class="mt-6 text-xs text-muted-foreground uppercase tracking-[0.2em]">— James Whitfield, CEO</p>
+        </div>
+    </section>
+
+    <!-- How we operate accordion — dark -->
+    <section class="bg-primary py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-16 lg:grid-cols-[40%_1fr]">
+                <div use:animate={{ type: 'fadeLeft' }}>
+                    <p class="editorial-label-light mb-6">How We Operate</p>
+                    <h2 class="editorial-heading text-4xl font-semibold text-primary-foreground sm:text-5xl">A disciplined four-step process</h2>
+                    <p class="mt-6 max-w-xs text-sm leading-relaxed text-primary-foreground/60">From onboarding to ongoing stewardship, every step is designed around your long-term success.</p>
+                </div>
+                <div use:animate={{ type: 'stagger', stagger: 0.08 }}>
+                    {#each steps as step}
+                        <button class="accordion-row-light w-full text-left" onclick={() => (activeStep = activeStep === step.id ? null : step.id)}>
+                            <span class="text-sm font-medium text-primary-foreground">{step.title}</span>
+                            <span class="shrink-0 text-lg font-light text-primary-foreground/40 transition-transform {activeStep === step.id ? 'rotate-45' : ''}">+</span>
+                        </button>
+                        {#if activeStep === step.id}
+                            <p class="pb-4 pt-2 text-sm leading-relaxed text-primary-foreground/60">{step.desc}</p>
+                        {/if}
+                    {/each}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section use:animate={{ type: 'fadeUp' }} class="py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:items-center">
+                <h2 class="editorial-heading text-3xl font-semibold text-foreground sm:text-4xl">Ready to put your wealth to work?</h2>
+                <div class="flex flex-col gap-4 sm:flex-row md:justify-end">
+                    <Link href="/register" class="inline-flex items-center justify-center border border-foreground px-8 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-foreground hover:text-background">Start Investing</Link>
+                    <Link href="/contact-us" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40 hover:text-foreground transition-colors">Talk to an Advisor →</Link>
                 </div>
             </div>
         </div>

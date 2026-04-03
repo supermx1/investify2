@@ -1,234 +1,194 @@
 <script lang="ts">
     import Layout from '@/components/frontend/Layout.svelte';
-    import { onMount } from 'svelte';
+    import { Link } from '@inertiajs/svelte';
+    import { animate, splitText, heroParallax, magnetic } from '@/lib/gsap';
 
-    let mounted = $state(false);
-    onMount(() => {
-        mounted = true;
-    });
+    const benefits = [
+        { num: '01', title: 'Cost Efficiency', desc: 'ETFs typically cost a fraction of actively managed funds, with total expense ratios well below 0.5% — keeping more capital working for you.' },
+        { num: '02', title: 'Tax Efficiency', desc: 'The ETF structure minimizes capital gains distributions through in-kind creation and redemption, reducing your annual tax burden.' },
+        { num: '03', title: 'Transparency', desc: 'Daily portfolio disclosure means you always know exactly what you own, how it is priced, and where your money is allocated.' },
+    ];
+
+    const comparison = [
+        { label: 'Trading', etf: 'Intraday', mutual: 'End of Day' },
+        { label: 'Expense Ratio', etf: '<0.2%', mutual: '0.5 - 1.5%' },
+        { label: 'Transparency', etf: 'Daily Holdings', mutual: 'Monthly / Quarterly' },
+        { label: 'Tax Efficiency', etf: 'High', mutual: 'Moderate' },
+        { label: 'Minimum Investment', etf: 'None', mutual: '$1,000+' },
+    ];
+
+    const products = [
+        { id: 'core', name: 'Core Equity', desc: 'Broad market index funds covering global developed and emerging market equities at ultra-low cost.', ter: '0.03%', link: '/exchange-traded-funds' },
+        { id: 'factor', name: 'Factor & Smart Beta', desc: 'Rules-based ETFs targeting value, quality, momentum, and low-volatility factors with systematic rebalancing.', ter: '0.12%', link: '/exchange-traded-funds' },
+        { id: 'sector', name: 'Sector & Thematic', desc: 'Focused exposure to technology, healthcare, energy transition, and other high-conviction macro themes.', ter: '0.15%', link: '/exchange-traded-funds' },
+        { id: 'esg', name: 'ESG & Sustainable', desc: 'Screened and integrated ESG ETFs enabling responsible investing without sacrificing diversification.', ter: '0.10%', link: '/exchange-traded-funds' },
+    ];
+
+    const steps = [
+        { num: '01', title: 'Open Account', desc: 'Complete our streamlined onboarding in minutes with digital identity verification.' },
+        { num: '02', title: 'Choose ETFs', desc: 'Browse our curated range or build a custom portfolio matched to your risk profile.' },
+        { num: '03', title: 'Start Trading', desc: 'Execute trades intraday with real-time pricing and institutional-grade execution.' },
+    ];
 </script>
 
 <Layout>
-    <!-- Hero Section -->
-    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-background-light dark:bg-background-dark">
-        <div class="absolute inset-0 z-0">
-            <div
-                class="absolute inset-0 bg-gradient-to-r from-background-light/95 via-background-light/80 to-transparent dark:from-background-dark/95 dark:via-background-dark/80 dark:to-transparent z-10"
-            ></div>
-            <img
-                src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&q=80&w=2000"
-                alt="ETF Trading"
-                class="w-full h-full object-cover"
-            />
-        </div>
+    <!-- Hero -->
+    <section class="relative min-h-[70vh] overflow-hidden bg-primary">
+        <img
+            use:heroParallax={0.4}
+            src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&q=80&w=1600"
+            alt="ETF trading"
+            class="absolute inset-0 h-full w-full object-cover opacity-40"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-primary/30 via-primary/50 to-primary/80"></div>
 
-        <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl">
-                <span
-                    class="inline-block py-1 px-3 rounded-full bg-accent-gold/10 text-accent-gold text-xs font-semibold tracking-wider uppercase mb-6 border border-accent-gold/20 backdrop-blur-sm"
-                >
-                    Exchange-Traded Funds
-                </span>
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-serif font-medium text-primary dark:text-white mb-6 leading-tight">
-                    ETF <br />
-                    <span class="italic text-accent-gold">Insights.</span>
+        <div class="relative z-10 flex min-h-[70vh] flex-col justify-between px-6 pb-16 pt-24 lg:px-20">
+            <div class="max-w-4xl">
+                <nav use:animate={{ type: 'fadeUp', delay: 0.2 }} class="mb-8 flex items-center gap-2 text-xs text-primary-foreground/40">
+                    <Link href="/" class="transition-colors hover:text-primary-foreground/70">Home</Link>
+                    <span>/</span>
+                    <span class="text-primary-foreground/70">Exchange Traded Funds</span>
+                </nav>
+                <p use:animate={{ type: 'fadeUp', delay: 0.3 }} class="editorial-label-light mb-6">Verticals</p>
+                <h1 use:splitText={{ delay: 0.4 }} class="editorial-heading max-w-3xl text-5xl font-semibold text-primary-foreground sm:text-6xl lg:text-7xl">
+                    Low-Cost Market Exposure with Institutional Precision
                 </h1>
-                <p class="text-xl text-gray-600 dark:text-gray-300 font-light mb-10 leading-relaxed max-w-2xl">
-                    ETFs are an excellent investment vehicle that provides investors with access to a diversified portfolio of assets at low costs.
+            </div>
+
+            <div class="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+                <p use:animate={{ type: 'fadeUp', delay: 0.8 }} class="max-w-md text-sm leading-relaxed text-primary-foreground/60">
+                    Exchange-Traded Funds combine the diversification of mutual funds with the flexibility of stock trading. Our ETF platform offers best-in-class access to global markets.
                 </p>
-                <div class="flex flex-wrap gap-4">
-                    <a
-                        href="/register"
-                        target="_blank"
-                        class="bg-primary hover:bg-primary-light dark:bg-accent-gold dark:hover:bg-accent-gold/90 text-white px-8 py-3.5 rounded-full text-base font-medium transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex items-center gap-2"
-                    >
-                        Start Trading
-                        <span class="material-icons text-sm">arrow_forward</span>
-                    </a>
-                    <a
-                        href="/contact-us"
-                        class="bg-white/50 dark:bg-white/5 hover:bg-white/80 dark:hover:bg-white/10 text-primary dark:text-white border border-primary/10 dark:border-white/10 backdrop-blur-sm px-8 py-3.5 rounded-full text-base font-medium transition-all flex items-center gap-2"
-                    >
-                        Contact Advisor
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Leadership & Introduction Section -->
-    <section class="py-24 bg-white dark:bg-primary/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <span class="text-accent-gold font-bold text-sm tracking-wider uppercase mb-2 block">Leadership</span>
-                    <h2 class="font-serif text-3xl md:text-4xl text-primary dark:text-white mb-6">Leroy Mahoney</h2>
-                    <div class="h-1 w-20 bg-accent-gold mb-8"></div>
-                    <p class="text-xl text-gray-500 dark:text-gray-400 mb-6 italic font-serif">Head, ETF Division</p>
-                    <div class="prose prose-lg dark:prose-invert">
-                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                            "ETFs are an increasingly popular investment vehicle for investors who want exposure to a wide range of stocks, bonds, and
-                            other assets. As a company, we have found ETFs to be an excellent investment model that has provided our clients with
-                            significant returns over the years."
-                        </p>
-                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-                            An Exchange-Traded Fund (ETF) is a type of investment fund that trades on stock exchanges, just like a stock. ETFs own a
-                            basket of underlying assets such as stocks, bonds, or commodities, and they are designed to track the performance of a
-                            particular index, sector, or asset class.
-                        </p>
+                <div use:animate={{ type: 'fade', delay: 1 }} class="flex gap-12 text-right">
+                    <div>
+                        <p class="text-2xl font-semibold text-primary-foreground">Intraday</p>
+                        <p class="text-xs text-primary-foreground/40">Trading Liquidity</p>
                     </div>
-                </div>
-                <div class="relative">
-                    <div class="absolute -inset-4 bg-accent-gold/20 rounded-xl blur-lg transform rotate-2"></div>
-                    <img
-                        src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&q=80&w=1200"
-                        alt="ETF Strategy"
-                        class="relative rounded-xl shadow-2xl w-full h-auto object-cover aspect-[4/3] grayscale hover:grayscale-0 transition-all duration-700"
-                    />
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Benefits Section -->
-    <section class="py-24 bg-background-light dark:bg-background-dark border-t border-primary/5 dark:border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-accent-gold font-bold text-sm tracking-wider uppercase mb-2 block">Why Choose ETFs</span>
-                <h2 class="font-serif text-3xl md:text-4xl text-primary dark:text-white mb-4">Benefits of Investing</h2>
-                <p class="text-gray-500 dark:text-gray-400 text-lg">
-                    ETFs offer a unique combination of benefits that make them an attractive option for both individual and institutional investors.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Diversification -->
-                <div
-                    class="bg-white dark:bg-white/5 p-8 rounded-xl shadow-soft hover:shadow-soft-hover transition-all border border-gray-100 dark:border-white/5 group"
-                >
-                    <div
-                        class="w-14 h-14 bg-primary/5 dark:bg-white/10 rounded-full flex items-center justify-center mb-6 text-2xl text-primary dark:text-white group-hover:bg-accent-gold group-hover:text-white transition-colors"
-                    >
-                        <span class="material-icons">splitscreen</span>
-                    </div>
-                    <h3 class="font-serif text-xl text-primary dark:text-white mb-4">Diversification</h3>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-                        Access a broad range of securities to spread risk across different asset classes, sectors, and regions.
-                    </p>
-                </div>
-
-                <!-- Low Costs -->
-                <div
-                    class="bg-white dark:bg-white/5 p-8 rounded-xl shadow-soft hover:shadow-soft-hover transition-all border border-gray-100 dark:border-white/5 group"
-                >
-                    <div
-                        class="w-14 h-14 bg-primary/5 dark:bg-white/10 rounded-full flex items-center justify-center mb-6 text-2xl text-primary dark:text-white group-hover:bg-accent-gold group-hover:text-white transition-colors"
-                    >
-                        <span class="material-icons">sell</span>
-                    </div>
-                    <h3 class="font-serif text-xl text-primary dark:text-white mb-4">Low Costs</h3>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-                        Known for low management fees compared to other options. Passive management requires less research, resulting in lower costs.
-                    </p>
-                </div>
-
-                <!-- Liquidity -->
-                <div
-                    class="bg-white dark:bg-white/5 p-8 rounded-xl shadow-soft hover:shadow-soft-hover transition-all border border-gray-100 dark:border-white/5 group"
-                >
-                    <div
-                        class="w-14 h-14 bg-primary/5 dark:bg-white/10 rounded-full flex items-center justify-center mb-6 text-2xl text-primary dark:text-white group-hover:bg-accent-gold group-hover:text-white transition-colors"
-                    >
-                        <span class="material-icons">water_drop</span>
-                    </div>
-                    <h3 class="font-serif text-xl text-primary dark:text-white mb-4">Liquidity</h3>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-                        Traded on major stock exchanges, making them highly liquid. Buy or sell at any time during the trading day.
-                    </p>
-                </div>
-
-                <!-- Tax Efficiency -->
-                <div
-                    class="bg-white dark:bg-white/5 p-8 rounded-xl shadow-soft hover:shadow-soft-hover transition-all border border-gray-100 dark:border-white/5 group"
-                >
-                    <div
-                        class="w-14 h-14 bg-primary/5 dark:bg-white/10 rounded-full flex items-center justify-center mb-6 text-2xl text-primary dark:text-white group-hover:bg-accent-gold group-hover:text-white transition-colors"
-                    >
-                        <span class="material-icons">account_balance</span>
-                    </div>
-                    <h3 class="font-serif text-xl text-primary dark:text-white mb-4">Tax Efficiency</h3>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-                        More tax-efficient than mutual funds due to fewer capital gains distributions and lower turnover.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Performance Stats -->
-    <section class="py-24 bg-primary text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="currentColor" />
-            </svg>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="font-serif text-3xl md:text-4xl mb-6">Remarkable Performance</h2>
-                    <p class="text-gray-300 text-lg leading-relaxed mb-8">
-                        The performance of our ETFs has been remarkable over the years, with consistent returns and low fees. Our ETFs have also
-                        outperformed their benchmark indices consistently.
-                    </p>
-                    <a
-                        href="/register"
-                        target="_blank"
-                        class="inline-flex items-center gap-2 bg-accent-gold hover:bg-accent-gold/90 text-white px-8 py-3 rounded-full font-medium transition-all"
-                    >
-                        View ETF Performance
-                        <span class="material-icons text-sm">show_chart</span>
-                    </a>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10">
-                        <div class="text-4xl font-bold text-accent-gold mb-2">34%</div>
-                        <div class="text-sm text-gray-300">Avg. Annual Return (S&P 500 ETF)</div>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10">
-                        <div class="text-4xl font-bold text-accent-gold mb-2">3%</div>
-                        <div class="text-sm text-gray-300">Steady Annual Increase (Last 4 Years)</div>
-                    </div>
-                    <div class="col-span-1 md:col-span-2 bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10">
-                        <div class="text-xl font-bold text-white mb-2">200+</div>
-                        <div class="text-sm text-gray-300">Active Traders</div>
+                    <div>
+                        <p class="text-2xl font-semibold text-primary-foreground">&lt;0.2%</p>
+                        <p class="text-xs text-primary-foreground/40">Average TER</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action -->
-    <section class="py-24 bg-white dark:bg-primary/5">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="font-serif text-3xl md:text-5xl text-primary dark:text-white mb-6">Start building your ETF portfolio</h2>
-            <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 leading-relaxed">
-                We believe in building enduring relationships with clients through trust and a shared purpose to improve investment outcomes for a
-                better future.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                    href="/register"
-                    target="_blank"
-                    class="bg-primary hover:bg-primary-light dark:bg-accent-gold dark:hover:bg-accent-gold/90 text-white px-10 py-4 rounded-full text-lg font-medium transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
-                >
-                    Get Started Today
-                </a>
-                <a
-                    href="/contact-us"
-                    class="bg-white dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10 text-primary dark:text-white border border-gray-200 dark:border-white/10 px-10 py-4 rounded-full text-lg font-medium transition-all"
-                >
-                    Speak with an Advisor
-                </a>
+    <!-- Why ETFs - 3 large benefit blocks -->
+    <section class="py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mb-16 max-w-2xl">
+                <p use:animate={{ type: 'fadeUp', delay: 0.1 }} class="editorial-label mb-6">Why ETFs</p>
+                <h2 use:animate={{ type: 'fadeUp', delay: 0.2 }} class="editorial-heading text-4xl font-semibold text-foreground sm:text-5xl">
+                    The most efficient vehicle for global market access
+                </h2>
+            </div>
+            <div use:animate={{ type: 'stagger' }} class="grid grid-cols-1 gap-0 md:grid-cols-3">
+                {#each benefits as benefit, i}
+                    <div class="group relative border-t border-border/40 py-10 md:border-l md:border-t-0 md:px-8 md:py-0 md:first:border-l-0 md:first:pl-0 md:last:pr-0">
+                        <span class="mb-6 block font-mono text-6xl font-extralight text-border/60 lg:text-7xl">{benefit.num}</span>
+                        <h3 class="mb-3 text-lg font-semibold text-foreground">{benefit.title}</h3>
+                        <p class="text-sm leading-relaxed text-muted-foreground">{benefit.desc}</p>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </section>
+
+    <!-- ETF vs Mutual Fund Comparison -->
+    <section class="border-y border-border/40 bg-muted/10 py-24 lg:py-36">
+        <div class="mx-auto max-w-5xl px-6 lg:px-8">
+            <p use:animate={{ type: 'fadeUp', delay: 0.1 }} class="editorial-label mb-6">How ETFs Compare</p>
+            <h2 use:animate={{ type: 'fadeUp', delay: 0.2 }} class="editorial-heading mb-16 max-w-2xl text-4xl font-semibold text-foreground sm:text-5xl">
+                ETF vs. Mutual Fund
+            </h2>
+
+            <div use:animate={{ type: 'fadeUp', delay: 0.3 }} class="overflow-hidden rounded-sm border border-border/40">
+                <!-- Table header -->
+                <div class="grid grid-cols-3 bg-foreground text-background">
+                    <div class="px-6 py-4 text-xs font-medium uppercase tracking-[0.15em]">Feature</div>
+                    <div class="border-l border-background/10 px-6 py-4 text-center text-xs font-medium uppercase tracking-[0.15em]">ETF</div>
+                    <div class="border-l border-background/10 px-6 py-4 text-center text-xs font-medium uppercase tracking-[0.15em]">Mutual Fund</div>
+                </div>
+                <!-- Table rows -->
+                {#each comparison as row, i}
+                    <div class="grid grid-cols-3 {i % 2 === 0 ? 'bg-background' : 'bg-muted/20'} border-t border-border/30">
+                        <div class="px-6 py-5 text-sm font-medium text-foreground">{row.label}</div>
+                        <div class="border-l border-border/20 px-6 py-5 text-center text-sm font-semibold text-foreground">{row.etf}</div>
+                        <div class="border-l border-border/20 px-6 py-5 text-center text-sm text-muted-foreground">{row.mutual}</div>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section class="border-t border-border/40 py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <p use:animate={{ type: 'fadeUp', delay: 0.1 }} class="editorial-label mb-6">ETF Categories</p>
+            <h2 use:animate={{ type: 'fadeUp', delay: 0.2 }} class="editorial-heading mb-16 max-w-2xl text-4xl font-semibold text-foreground sm:text-5xl">
+                Our ETF product range
+            </h2>
+
+            <div use:animate={{ type: 'stagger' }} class="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border/40 bg-border/40 sm:grid-cols-2">
+                {#each products as product}
+                    <div class="flex flex-col justify-between bg-background p-8 lg:p-10">
+                        <div>
+                            <h3 class="mb-3 text-lg font-semibold text-foreground">{product.name}</h3>
+                            <p class="mb-6 text-sm leading-relaxed text-muted-foreground">{product.desc}</p>
+                        </div>
+                        <div class="flex items-end justify-between">
+                            <div>
+                                <p class="text-xs uppercase tracking-[0.15em] text-muted-foreground/60">TER from</p>
+                                <p class="mt-1 text-xl font-semibold text-foreground">{product.ter}</p>
+                            </div>
+                            <Link href={product.link} class="text-sm font-medium text-foreground underline underline-offset-4 decoration-border transition-colors hover:decoration-foreground">
+                                Explore &rarr;
+                            </Link>
+                        </div>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works - Process Steps -->
+    <section class="bg-primary py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <p use:animate={{ type: 'fadeUp', delay: 0.1 }} class="editorial-label-light mb-6">Getting Started</p>
+            <h2 use:animate={{ type: 'fadeUp', delay: 0.2 }} class="editorial-heading mb-20 max-w-2xl text-4xl font-semibold text-primary-foreground sm:text-5xl">
+                Three steps to your portfolio
+            </h2>
+
+            <div use:animate={{ type: 'stagger' }} class="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-0">
+                {#each steps as step, i}
+                    <div class="relative md:px-8 md:first:pl-0 md:last:pr-0">
+                        {#if i < steps.length - 1}
+                            <div class="absolute right-0 top-6 hidden h-px w-8 bg-primary-foreground/20 md:block"></div>
+                        {/if}
+                        <span class="mb-4 block font-mono text-7xl font-extralight text-primary-foreground/15 lg:text-8xl">{step.num}</span>
+                        <h3 class="mb-3 text-lg font-semibold text-primary-foreground">{step.title}</h3>
+                        <p class="text-sm leading-relaxed text-primary-foreground/50">{step.desc}</p>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div use:animate={{ type: 'fadeUp' }} class="grid grid-cols-1 gap-8 md:grid-cols-2 md:items-center">
+                <h2 class="editorial-heading text-3xl font-semibold text-foreground sm:text-4xl">
+                    Build a low-cost, diversified portfolio today.
+                </h2>
+                <div class="flex flex-col gap-4 sm:flex-row md:justify-end">
+                    <Link href="/register" class="inline-flex items-center justify-center border border-foreground px-8 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-foreground hover:text-background">
+                        Start Investing
+                    </Link>
+                    <Link href="/contact-us" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40 transition-colors hover:text-foreground">
+                        Talk to an Advisor &rarr;
+                    </Link>
+                </div>
             </div>
         </div>
     </section>

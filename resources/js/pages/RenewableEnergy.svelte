@@ -1,301 +1,232 @@
-<script>
+<script lang="ts">
     import Layout from '@/components/frontend/Layout.svelte';
-    import { onMount } from 'svelte';
-    import { fade, fly } from 'svelte/transition';
+    import { Link } from '@inertiajs/svelte';
+    import { animate, splitText, heroParallax, magnetic } from '@/lib/gsap';
 
-    let mounted = false;
-    onMount(() => {
-        mounted = true;
-    });
+    let activeItem = $state<string | null>(null);
+
+    const vehicles = [
+        { id: 'infra', title: 'Infrastructure Equity', desc: 'Direct ownership of solar, wind, and hydroelectric assets generating long-duration, inflation-linked cash flows.' },
+        { id: 'pyrolysis', title: 'Pyrolysis & Circular Economy', desc: 'Advanced waste-to-energy ventures converting non-recyclable materials into valuable fuel and feedstock.' },
+        { id: 'bonds', title: 'Green Bonds', desc: 'Investment-grade fixed income instruments funding certified environmental and sustainable development projects.' },
+        { id: 'carbon', title: 'Carbon Credits & Markets', desc: 'Participation in voluntary and compliance carbon markets, capitalising on the global pricing of emissions.' },
+    ];
+
+    const impactStats = [
+        { value: '2.4GW', label: 'Clean Energy' },
+        { value: '500K', label: 'Tonnes CO2 Avoided' },
+        { value: '12', label: 'Countries' },
+        { value: 'A+', label: 'ESG Rated' },
+    ];
 </script>
 
 <Layout>
+    <!-- 1. Hero -->
+    <section class="relative min-h-screen overflow-hidden bg-primary">
+        <img
+            use:heroParallax={0.4}
+            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=1600"
+            alt="Solar panels at sunrise"
+            class="absolute inset-0 h-full w-full object-cover opacity-40"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-primary/40 via-primary/30 to-primary/50"></div>
 
-        <!-- Hero Section -->
-        <header class="relative w-full h-[600px] flex items-center overflow-hidden">
-            <!-- Background Image with Overlay -->
-            <div class="absolute inset-0 z-0">
-                <img
-                    alt="Modern solar panels in a bright field"
-                    class="w-full h-full object-cover"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPe8pxomgs3RGqZXZH8kzN7NIzPzMEGjyTgPoHlFPre6P0W50uJmohy8pbO9c7UmXlpBG3cYUbIl4e0nmr_a-Kaf4Wtp5VhAHeMFhb7w0WbjjD26BeEjuGQXim0t4SUuaNdpUFXRdfG4YLgZspTyXK6Dq-Cj-zbAoaoSv3Rzeym6sR9Z_pKVyXvI-QJNErrPhQT20YHM4rB3Dchfx_0VBmfTLoGUkvPCB4u6MIx0GakONbvlinxnm7mvGRyvR8vexdqiydGj5zolA"
-                />
-                <div
-                    class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/60 to-transparent dark:from-background-dark/95 dark:via-background-dark/80 dark:to-background-dark/20"
-                ></div>
+        <div class="relative z-10 flex min-h-screen flex-col justify-between px-6 pb-16 pt-24 lg:px-20">
+            <div class="max-w-4xl">
+                <nav use:animate={{ type: 'fadeUp', delay: 0.2 }} class="mb-8 flex items-center gap-2 text-xs text-primary-foreground/40">
+                    <Link href="/" class="hover:text-primary-foreground/70 transition-colors">Home</Link>
+                    <span>/</span>
+                    <span class="text-primary-foreground/70">Renewable Energy</span>
+                </nav>
+                <p use:animate={{ type: 'fadeUp', delay: 0.3 }} class="editorial-label-light mb-6">Portfolio</p>
+                <h1 use:splitText={{ delay: 0.4 }} class="editorial-heading text-5xl font-semibold text-primary-foreground sm:text-6xl lg:text-7xl xl:text-8xl">
+                    Capitalising on the Circular Economy
+                </h1>
             </div>
 
-            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full">
-                <div class="max-w-2xl">
-                    <!-- Breadcrumb -->
-                    <nav
-                        class="flex items-center space-x-2 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-6 font-display"
-                    >
-                        <a class="hover:text-primary dark:hover:text-accent-gold transition-colors" href="/">Home</a>
-                        <span class="text-gray-300 dark:text-gray-600">/</span>
-                        <a class="hover:text-primary dark:hover:text-accent-gold transition-colors" href="/infrastructure-real-estate">Investments</a>
-                        <span class="text-gray-300 dark:text-gray-600">/</span>
-                        <span class="text-primary dark:text-accent-gold font-bold">Renewables &amp; Pyrolysis</span>
-                    </nav>
-
-                    {#if mounted}
-                        <h1
-                            in:fly={{ y: 20, duration: 800, delay: 100 }}
-                            class="font-serif text-5xl md:text-6xl lg:text-7xl text-gray-900 dark:text-white leading-[1.1] mb-6"
-                        >
-                            Capitalizing on the <br /> <span class="italic text-gray-600 dark:text-gray-300">Circular Economy.</span>
-                        </h1>
-                        <p
-                            in:fly={{ y: 20, duration: 800, delay: 300 }}
-                            class="font-serif text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-10 max-w-lg border-l-4 border-primary dark:border-accent-gold pl-6"
-                        >
-                            Exclusive access to high-yield infrastructure assets at the intersection of sustainable energy and advanced material
-                            recovery.
-                        </p>
-                        <div in:fly={{ y: 20, duration: 800, delay: 500 }} class="flex flex-col sm:flex-row gap-4">
-                            <button
-                                class="bg-primary dark:bg-accent-gold hover:bg-primary-light dark:hover:bg-accent-gold/90 text-white dark:text-background-dark font-semibold px-8 py-3.5 rounded-full shadow-lg shadow-primary/20 dark:shadow-accent-gold/20 transition-all flex items-center justify-center gap-2 group"
-                            >
-                                Download Prospectus
-                                <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_downward</span>
-                            </button>
-                            <button
-                                class="bg-white dark:bg-white/10 hover:bg-gray-50 dark:hover:bg-white/20 text-gray-800 dark:text-white font-medium px-8 py-3.5 rounded-full border border-gray-200 dark:border-white/10 shadow-sm transition-all"
-                            >
-                                View Performance
-                            </button>
-                        </div>
-                    {/if}
+            <div class="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+                <p use:animate={{ type: 'fadeUp', delay: 0.8 }} class="max-w-md text-sm leading-relaxed text-primary-foreground/60">
+                    Renewable energy is the fastest-growing asset class of the decade. We provide investors with diversified exposure to this structural megatrend.
+                </p>
+                <div use:animate={{ type: 'fade', delay: 1 }} class="flex gap-12 text-right">
+                    <div>
+                        <p class="text-2xl font-semibold text-primary-foreground">ESG</p>
+                        <p class="text-xs text-primary-foreground/40">Impact Rated</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-semibold text-primary-foreground">8–12%</p>
+                        <p class="text-xs text-primary-foreground/40">Target Yield</p>
+                    </div>
                 </div>
             </div>
-        </header>
-
-
-    <!-- Intro Text -->
-    <section class="py-20 bg-background-light dark:bg-background-dark border-b border-gray-200 dark:border-white/5">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="font-serif text-3xl md:text-4xl text-gray-900 dark:text-white mb-6">Future-Proof Your Legacy</h2>
-            <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed font-light font-display">
-                As global markets shift towards sustainability, the most resilient portfolios are those diversified into tangible assets. Our
-                Renewable Energy &amp; Pyrolysis strategy offers a unique dual-benefit: generating consistent energy yields while solving critical
-                waste management challenges through advanced thermal decomposition technology.
-            </p>
-            <div class="w-24 h-1 bg-primary/30 dark:bg-accent-gold/30 mx-auto mt-10 rounded-full"></div>
         </div>
     </section>
 
-    <!-- Investment Strategy Grid -->
-    <section class="py-24 bg-white dark:bg-background-dark/50">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <!-- 2. Impact Metrics Bar -->
+    <section class="border-y border-border/40 bg-white">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div use:animate={{ type: 'stagger' }} class="grid grid-cols-2 md:grid-cols-4 divide-x divide-border/30">
+                {#each impactStats as stat}
+                    <div class="py-8 px-6 text-center md:py-10">
+                        <p class="text-3xl font-semibold text-foreground lg:text-4xl">{stat.value}</p>
+                        <p class="mt-1 text-xs uppercase tracking-[0.15em] text-muted-foreground">{stat.label}</p>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Image Mosaic Grid -->
+    <section class="bg-white py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mb-16">
-                <span class="text-primary dark:text-accent-gold font-bold tracking-widest text-sm uppercase font-display">Strategic Allocation</span>
-                <h3 class="font-serif text-4xl text-gray-900 dark:text-white mt-3">Investment Vehicles</h3>
+                <p use:animate={{ type: 'fadeUp', delay: 0.1 }} class="editorial-label mb-6">Our Approach</p>
+                <h2 use:animate={{ type: 'fadeUp', delay: 0.2 }} class="editorial-heading max-w-2xl text-4xl font-semibold text-foreground sm:text-5xl">
+                    Future-proof your legacy through sustainable infrastructure
+                </h2>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div
-                    class="group p-8 bg-background-light dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 hover:border-primary/50 dark:hover:border-accent-gold/50 hover:shadow-lg transition-all duration-300"
-                >
-                    <div
-                        class="w-14 h-14 bg-white dark:bg-white/10 rounded-lg flex items-center justify-center shadow-sm mb-6 group-hover:bg-primary/10 dark:group-hover:bg-accent-gold/10 transition-colors"
-                    >
-                        <span
-                            class="material-icons text-gray-700 dark:text-gray-300 text-3xl group-hover:text-primary dark:group-hover:text-accent-gold"
-                            >solar_power</span
-                        >
+            <div use:animate={{ type: 'stagger' }} class="grid grid-cols-1 gap-4 md:grid-cols-2 md:grid-rows-2 lg:gap-5">
+                <!-- Large image: Solar Farm (spans 2 rows) -->
+                <div class="relative row-span-2 overflow-hidden rounded-lg group min-h-[400px] md:min-h-0">
+                    <img
+                        src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=1200"
+                        alt="Solar farm aerial view"
+                        class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                    <div class="relative z-10 flex h-full flex-col justify-end p-8 lg:p-10">
+                        <p class="text-xs uppercase tracking-[0.2em] text-white/50 mb-3">Long-Duration Assets</p>
+                        <h3 class="text-xl font-semibold text-white lg:text-2xl">Solar Infrastructure</h3>
+                        <p class="mt-2 max-w-sm text-sm leading-relaxed text-white/70">
+                            20-30 year asset lives with government-backed offtake agreements providing stable, inflation-linked returns.
+                        </p>
                     </div>
-                    <h4
-                        class="font-serif text-2xl text-gray-900 dark:text-white mb-4 group-hover:text-primary dark:group-hover:text-accent-gold transition-colors"
-                    >
-                        Infrastructure Equity
-                    </h4>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 font-display">
-                        Direct ownership stakes in operational solar farms and wind arrays across OECD nations, providing stable, inflation-linked
-                        cash flows backed by long-term government contracts.
-                    </p>
-                    <a
-                        class="inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white hover:text-primary dark:hover:text-accent-gold transition-colors font-display"
-                        href="#"
-                    >
-                        Learn more <span class="material-icons text-sm ml-1">arrow_forward</span>
-                    </a>
                 </div>
 
-                <!-- Card 2 -->
-                <div
-                    class="group p-8 bg-background-light dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 hover:border-primary/50 dark:hover:border-accent-gold/50 hover:shadow-lg transition-all duration-300"
-                >
-                    <div
-                        class="w-14 h-14 bg-white dark:bg-white/10 rounded-lg flex items-center justify-center shadow-sm mb-6 group-hover:bg-primary/10 dark:group-hover:bg-accent-gold/10 transition-colors"
-                    >
-                        <span
-                            class="material-icons text-gray-700 dark:text-gray-300 text-3xl group-hover:text-primary dark:group-hover:text-accent-gold"
-                            >science</span
-                        >
+                <!-- Smaller image: Wind Turbines -->
+                <div class="relative overflow-hidden rounded-lg group min-h-[240px]">
+                    <img
+                        src="https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?auto=format&fit=crop&q=80&w=800"
+                        alt="Wind turbines at dusk"
+                        class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                    <div class="relative z-10 flex h-full flex-col justify-end p-8">
+                        <p class="text-xs uppercase tracking-[0.2em] text-white/50 mb-3">Inflation Linkage</p>
+                        <h3 class="text-lg font-semibold text-white">Wind Energy</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-white/70">
+                            Energy contracts indexed to inflation, providing natural portfolio protection.
+                        </p>
                     </div>
-                    <h4
-                        class="font-serif text-2xl text-gray-900 dark:text-white mb-4 group-hover:text-primary dark:group-hover:text-accent-gold transition-colors"
-                    >
-                        Pyrolysis Ventures
-                    </h4>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 font-display">
-                        Venture-grade exposure to cutting-edge pyrolysis plants converting plastic waste into high-value biofuels and circular
-                        chemical feedstocks. High growth potential.
-                    </p>
-                    <a
-                        class="inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white hover:text-primary dark:hover:text-accent-gold transition-colors font-display"
-                        href="#"
-                    >
-                        Learn more <span class="material-icons text-sm ml-1">arrow_forward</span>
-                    </a>
                 </div>
 
-                <!-- Card 3 -->
-                <div
-                    class="group p-8 bg-background-light dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 hover:border-primary/50 dark:hover:border-accent-gold/50 hover:shadow-lg transition-all duration-300"
-                >
-                    <div
-                        class="w-14 h-14 bg-white dark:bg-white/10 rounded-lg flex items-center justify-center shadow-sm mb-6 group-hover:bg-primary/10 dark:group-hover:bg-accent-gold/10 transition-colors"
-                    >
-                        <span
-                            class="material-icons text-gray-700 dark:text-gray-300 text-3xl group-hover:text-primary dark:group-hover:text-accent-gold"
-                            >account_balance</span
-                        >
+                <!-- Smaller image: Hydroelectric -->
+                <div class="relative overflow-hidden rounded-lg group min-h-[240px]">
+                    <img
+                        src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=800"
+                        alt="Hydroelectric dam"
+                        class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                    <div class="relative z-10 flex h-full flex-col justify-end p-8">
+                        <p class="text-xs uppercase tracking-[0.2em] text-white/50 mb-3">ESG Alignment</p>
+                        <h3 class="text-lg font-semibold text-white">Hydroelectric Power</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-white/70">
+                            Rigorous environmental and social impact assessment before every commitment.
+                        </p>
                     </div>
-                    <h4
-                        class="font-serif text-2xl text-gray-900 dark:text-white mb-4 group-hover:text-primary dark:group-hover:text-accent-gold transition-colors"
-                    >
-                        Green Bonds
-                    </h4>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 font-display">
-                        Senior secured debt instruments financing sustainable transitions. A conservative approach offering fixed coupons with
-                        rigorous ESG covenants attached.
-                    </p>
-                    <a
-                        class="inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white hover:text-primary dark:hover:text-accent-gold transition-colors font-display"
-                        href="#"
-                    >
-                        Learn more <span class="material-icons text-sm ml-1">arrow_forward</span>
-                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ESG & Risk Management Section -->
-    <section class="py-24 bg-gray-50 dark:bg-background-dark relative overflow-hidden">
-        <!-- Abstract Background Pattern -->
-        <div
-            class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-gray-200 to-transparent dark:from-white/5 opacity-50 pointer-events-none"
-        ></div>
-
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <!-- Content Side -->
+    <!-- 4. Split Text + Accordion (light bg) -->
+    <section class="bg-white py-24 lg:py-36 border-t border-border/40">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-16 lg:grid-cols-[40%_1fr]">
                 <div>
-                    <span class="text-success-green font-bold tracking-widest text-sm uppercase flex items-center gap-2 font-display">
-                        <span class="w-2 h-2 rounded-full bg-success-green"></span> Impact &amp; Governance
-                    </span>
-                    <h3 class="font-serif text-4xl text-gray-900 dark:text-white mt-4 mb-6">Risk Mitigation &amp; <br />ESG Measurability</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-lg mb-8 leading-relaxed font-display">
-                        We don't just invest in green; we verify it. Our proprietary risk framework ensures that environmental impact translates into
-                        financial durability, hedging against regulatory shifts and volatile commodity markets.
-                    </p>
-
-                    <div class="space-y-4 font-display">
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-6 h-6 rounded-full bg-success-green/10 flex items-center justify-center mt-1">
-                                <span class="material-icons text-success-green text-sm">check</span>
-                            </div>
-                            <div>
-                                <h5 class="font-bold text-gray-900 dark:text-white">Geopolitical Hedge</h5>
-                                <p class="text-gray-500 dark:text-gray-400 text-sm">
-                                    Domestic energy production reduces reliance on foreign supply chains.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-6 h-6 rounded-full bg-success-green/10 flex items-center justify-center mt-1">
-                                <span class="material-icons text-success-green text-sm">check</span>
-                            </div>
-                            <div>
-                                <h5 class="font-bold text-gray-900 dark:text-white">Long-term PPA Contracts</h5>
-                                <p class="text-gray-500 dark:text-gray-400 text-sm">
-                                    20-year Power Purchase Agreements secure revenue predictability.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-6 h-6 rounded-full bg-success-green/10 flex items-center justify-center mt-1">
-                                <span class="material-icons text-success-green text-sm">check</span>
-                            </div>
-                            <div>
-                                <h5 class="font-bold text-gray-900 dark:text-white">Regulatory Compliance</h5>
-                                <p class="text-gray-500 dark:text-gray-400 text-sm">
-                                    Full adherence to EU Taxonomy and SEC Climate Disclosure rules.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <p use:animate={{ type: 'fadeUp', delay: 0.1 }} class="editorial-label mb-6">Investment Vehicles</p>
+                    <h2 use:animate={{ type: 'fadeUp', delay: 0.2 }} class="editorial-heading text-4xl font-semibold text-foreground sm:text-5xl">
+                        How we access renewable markets
+                    </h2>
                 </div>
-
-                <!-- Visual/Metrics Side -->
-                <div
-                    class="bg-white dark:bg-white/5 p-8 lg:p-10 rounded-2xl shadow-xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-white/10"
-                >
-                    <h4 class="font-serif text-2xl text-gray-900 dark:text-white mb-8">Live Impact Metrics</h4>
-                    <div class="grid grid-cols-2 gap-8 mb-8">
-                        <div>
-                            <div class="text-gray-400 text-sm font-medium mb-1 font-display">Carbon Offset (YTD)</div>
-                            <div class="text-4xl font-light text-gray-900 dark:text-white flex items-baseline gap-1 font-display">
-                                42.8k <span class="text-sm text-gray-500 dark:text-gray-400">Tons</span>
-                            </div>
-                            <div class="text-xs text-success-green mt-2 flex items-center font-display">
-                                <span class="material-icons text-sm mr-0.5">trending_up</span> +12% vs last year
-                            </div>
-                        </div>
-                        <div>
-                            <div class="text-gray-400 text-sm font-medium mb-1 font-display">Energy Generated</div>
-                            <div class="text-4xl font-light text-gray-900 dark:text-white flex items-baseline gap-1 font-display">
-                                185 <span class="text-sm text-gray-500 dark:text-gray-400">GWh</span>
-                            </div>
-                            <div class="text-xs text-success-green mt-2 flex items-center font-display">
-                                <span class="material-icons text-sm mr-0.5">trending_up</span> Exceeding targets
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-gray-100 dark:border-white/10 pt-8">
-                        <div class="flex justify-between items-end mb-2">
-                            <span class="text-gray-900 dark:text-white font-semibold font-display">ESG Portfolio Score</span>
-                            <span class="text-success-green font-bold text-xl font-display">AAA</span>
-                        </div>
-                        <div class="w-full bg-gray-100 dark:bg-white/10 rounded-full h-2">
-                            <div class="bg-success-green h-2 rounded-full" style="width: 92%"></div>
-                        </div>
-                        <p class="text-xs text-gray-400 mt-2 text-right font-display">Audited by Sustainalytics</p>
-                    </div>
+                <div use:animate={{ type: 'fadeUp', delay: 0.4 }}>
+                    {#each vehicles as v}
+                        <button class="accordion-row w-full text-left" onclick={() => (activeItem = activeItem === v.id ? null : v.id)}>
+                            <span class="text-sm font-medium text-foreground">{v.title}</span>
+                            <span class="shrink-0 text-lg font-light text-muted-foreground transition-transform duration-300 {activeItem === v.id ? 'rotate-45' : ''}">+</span>
+                        </button>
+                        {#if activeItem === v.id}
+                            <p class="pb-4 pt-2 text-sm leading-relaxed text-muted-foreground">{v.desc}</p>
+                        {/if}
+                    {/each}
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Prominent CTA Section -->
-    <section class="py-20 bg-gray-900 dark:bg-primary border-t border-white/10 relative">
-        <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
-            <h2 class="font-serif text-3xl md:text-5xl text-white mb-6">Secure Your Portfolio's Future</h2>
-            <p class="text-gray-300 dark:text-white/80 text-lg mb-10 max-w-2xl mx-auto font-light font-display">
-                Schedule a private consultation with our Energy Sector Specialists to discuss how Pyrolysis and Renewables fit into your wealth
-                preservation strategy.
+    <!-- 5. Full-Width Parallax Image Band -->
+    <section class="relative overflow-hidden">
+        <img
+            use:heroParallax={0.4}
+            src="https://images.unsplash.com/photo-1548337138-e87d889cc369?auto=format&fit=crop&q=80&w=1800"
+            alt="Wind farm landscape at golden hour"
+            class="w-full object-cover aspect-[21/8]"
+        />
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/50 to-transparent"></div>
+        <div class="absolute inset-0 z-10 flex items-center px-6 lg:px-20">
+            <div use:animate={{ type: 'fadeRight', delay: 0.3 }} class="max-w-lg">
+                <p class="text-xs uppercase tracking-[0.2em] text-primary-foreground/50 mb-4">The Energy Transition</p>
+                <h3 class="editorial-heading text-3xl font-semibold text-primary-foreground sm:text-4xl lg:text-5xl">
+                    Powering the shift to a decarbonised world
+                </h3>
+                <p class="mt-4 text-sm leading-relaxed text-primary-foreground/60">
+                    The global energy transition represents a multi-trillion dollar reallocation of capital over the coming decades.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Dark Stats Section -->
+    <section class="bg-primary py-24 lg:py-36">
+        <div class="mx-auto max-w-5xl px-6 text-center lg:px-8">
+            <p use:splitText={{ delay: 0.3 }} class="editorial-heading mx-auto max-w-3xl text-3xl font-semibold text-primary-foreground sm:text-4xl lg:text-5xl">
+                Sustainable investing is no longer a choice — it is the architecture of future returns.
             </p>
-            <button
-                class="bg-primary hover:bg-primary-light text-white dark:bg-white dark:text-primary dark:hover:bg-gray-100 font-bold text-lg px-10 py-4 rounded-full shadow-[0_0_20px_rgba(242,208,13,0.4)] transition-all transform hover:-translate-y-1"
-            >
-                Talk to a Private Wealth Advisor
-            </button>
-            <p class="mt-6 text-sm text-gray-500 dark:text-white/60 font-display">Minimum investment threshold applies. Accredited investors only.</p>
+            <div use:animate={{ type: 'stagger' }} class="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-3">
+                <div class="border-t border-primary-foreground/10 pt-8">
+                    <p class="text-4xl font-semibold text-primary-foreground lg:text-5xl">$8.4T</p>
+                    <p class="mt-2 text-xs uppercase tracking-[0.15em] text-primary-foreground/40">Global Renewable Investment by 2030</p>
+                </div>
+                <div class="border-t border-primary-foreground/10 pt-8">
+                    <p class="text-4xl font-semibold text-primary-foreground lg:text-5xl">72%</p>
+                    <p class="mt-2 text-xs uppercase tracking-[0.15em] text-primary-foreground/40">Institutions Increasing ESG Allocation</p>
+                </div>
+                <div class="border-t border-primary-foreground/10 pt-8">
+                    <p class="text-4xl font-semibold text-primary-foreground lg:text-5xl">3x</p>
+                    <p class="mt-2 text-xs uppercase tracking-[0.15em] text-primary-foreground/40">Growth vs Traditional Energy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. CTA -->
+    <section class="bg-white py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div use:animate={{ type: 'fadeUp', delay: 0.2 }} class="grid grid-cols-1 gap-8 md:grid-cols-2 md:items-center">
+                <h2 class="editorial-heading text-3xl font-semibold text-foreground sm:text-4xl">
+                    Secure your portfolio's future with renewable energy.
+                </h2>
+                <div class="flex flex-col gap-4 sm:flex-row md:justify-end">
+                    <Link href="/register" class="inline-flex items-center justify-center border border-foreground px-8 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-foreground hover:text-background">
+                        Start Investing
+                    </Link>
+                    <Link href="/contact-us" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40 hover:text-foreground transition-colors">
+                        Talk to an Advisor
+                    </Link>
+                </div>
+            </div>
         </div>
     </section>
 </Layout>

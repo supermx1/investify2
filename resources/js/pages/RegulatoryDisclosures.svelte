@@ -1,50 +1,33 @@
-<script>
+<script lang="ts">
     import Layout from '@/components/frontend/Layout.svelte';
     import { SYSTEM } from '@/lib/store';
+    import { animate, splitText } from '@/lib/gsap';
 </script>
 
-
-
 <Layout>
-    <!-- Hero Section -->
-    <header class="relative bg-background-light dark:bg-background-dark pt-20 pb-16 overflow-hidden">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <span
-                class="inline-block py-1 px-3 rounded-full bg-accent-gold/10 text-accent-gold text-xs font-semibold tracking-wider uppercase mb-6 border border-accent-gold/20 animate-fade-in"
-            >
-                Legal
-            </span>
-            <h1 class="font-serif text-4xl md:text-5xl font-medium text-primary dark:text-white leading-tight mb-6 animate-fade-in">
-                Regulatory Disclosures
-            </h1>
-            <p
-                class="text-lg text-gray-600 dark:text-gray-300 font-light leading-relaxed max-w-2xl mx-auto animate-fade-in"
-                style="animation-delay: 0.1s;"
-            >
+    <!-- Hero -->
+    <section class="border-b border-border/40 py-20 lg:py-28">
+        <div class="mx-auto max-w-3xl px-6 lg:px-8">
+            <p use:animate={{ type: 'fadeUp', delay: 0.1 }} class="editorial-label mb-6">Legal</p>
+            <h1 use:splitText={{ delay: 0.2 }} class="editorial-heading text-5xl font-semibold text-foreground sm:text-6xl">Regulatory Disclosures</h1>
+            <p use:animate={{ type: 'fadeUp', delay: 0.6 }} class="mt-6 text-sm leading-relaxed text-muted-foreground">
                 Important information regarding our regulatory status, business practices, and client protections.
             </p>
         </div>
-        <div class="absolute -z-10 -top-20 -right-20 w-96 h-96 bg-accent-gold/5 rounded-full blur-3xl"></div>
-    </header>
+    </section>
 
-    <!-- Content Section -->
-    <section class="py-16 bg-white dark:bg-primary/5">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="prose prose-lg prose-gray dark:prose-invert max-w-none">
-                <p class="lead text-xl text-gray-500 dark:text-gray-400 mb-10">
-                    Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </p>
-
+    <!-- Content -->
+    <section class="py-16 lg:py-24">
+        <div class="mx-auto max-w-3xl px-6 lg:px-8">
+            <p class="mb-10 text-xs text-muted-foreground">
+                Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
+            <div class="prose prose-sm prose-gray dark:prose-invert max-w-none">
                 <h3>1. SEC Registration</h3>
                 <p>
                     {$SYSTEM.company} is an investment adviser registered with the U.S. Securities and Exchange Commission ("SEC").
                     Registration as an investment adviser does not imply a certain level of skill or training. Additional information about {$SYSTEM.company}
-                    is available on the SEC's website at <a
-                        href="https://www.adviserinfo.sec.gov"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-accent-gold hover:underline">www.adviserinfo.sec.gov</a
-                    >.
+                    is available on the SEC's website at <a href="https://www.adviserinfo.sec.gov" target="_blank" rel="noopener noreferrer">www.adviserinfo.sec.gov</a>.
                 </p>
 
                 <h3>2. Form ADV</h3>
@@ -53,17 +36,20 @@
                     about the contents of this Brochure, please contact us. The information in this Brochure has not been approved or verified by the
                     United States Securities and Exchange Commission or by any state securities authority.
                 </p>
-                <div class="my-8 p-6 bg-background-light dark:bg-white/5 rounded-lg border border-primary/5">
-                    <h4 class="text-lg font-serif font-medium text-primary dark:text-white mb-2">Download Documents</h4>
-                    <ul class="list-none pl-0 space-y-2">
+
+                <div class="my-8 border border-border/40 p-6">
+                    <h4 class="mb-4 text-sm font-semibold text-foreground">Download Documents</h4>
+                    <ul class="list-none space-y-3 pl-0">
                         <li>
-                            <a href="#" class="flex items-center text-accent-gold hover:underline">
-                                <span class="material-icons text-sm mr-2">description</span> Form ADV Part 2A (Firm Brochure)
+                            <a href="#" class="flex items-center gap-2 text-sm text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all">
+                                <span class="material-icons text-sm">description</span>
+                                Form ADV Part 2A (Firm Brochure)
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="flex items-center text-accent-gold hover:underline">
-                                <span class="material-icons text-sm mr-2">description</span> Part 3: Client Relationship Summary (Form CRS)
+                            <a href="#" class="flex items-center gap-2 text-sm text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all">
+                                <span class="material-icons text-sm">description</span>
+                                Part 3: Client Relationship Summary (Form CRS)
                             </a>
                         </li>
                     </ul>

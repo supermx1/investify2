@@ -1,186 +1,146 @@
-<script>
+<script lang="ts">
     import Layout from '@/components/frontend/Layout.svelte';
     import { Link } from '@inertiajs/svelte';
     import { SYSTEM } from '@/lib/store';
+    import { animate, splitText, heroParallax } from '@/lib/gsap';
+
+    let activeItem = $state<string | null>(null);
+
+    const initiatives = [
+        { id: 'carbon', title: 'Carbon Reduction', desc: 'Science-based targets for reducing portfolio carbon intensity by 50% by 2030, aligned with a 1.5°C pathway.' },
+        { id: 'circular', title: 'Circular Economy', desc: 'Active investment in waste reduction, material reuse, and regenerative business models across our private market strategies.' },
+        { id: 'water', title: 'Water Stewardship', desc: 'Water risk assessment and reduction programmes embedded in our real asset and industrial investment due diligence.' },
+        { id: 'biodiversity', title: 'Biodiversity', desc: 'No deforestation commitment and nature-positive investment criteria applied to all new investments from 2024.' },
+    ];
+
+    const targets = [
+        { value: '50%', label: 'Carbon Reduction by 2030' },
+        { value: 'Net Zero', label: 'Portfolio Target 2040' },
+        { value: '30%', label: 'New AUM in Green Assets' },
+        { value: 'A+', label: 'UN PRI Rating' },
+    ];
 </script>
 
 <Layout>
-    <!-- Hero Section -->
-    <header class="relative bg-background-light dark:bg-background-dark pt-20 pb-20 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <span
-                class="inline-block py-1 px-3 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold tracking-wider uppercase mb-6 border border-emerald-500/20 animate-fade-in"
-            >
-                Our Responsibility
-            </span>
-            <h1 class="font-serif text-5xl lg:text-7xl font-medium text-primary dark:text-white leading-tight mb-8 animate-fade-in">
-                Sustainability at <br />
-                <span class="italic text-emerald-600 dark:text-emerald-400">{$SYSTEM.siteName}</span>
-            </h1>
-            <p
-                class="text-xl text-gray-600 dark:text-gray-300 font-light leading-relaxed max-w-3xl mx-auto animate-fade-in"
-                style="animation-delay: 0.1s;"
-            >
-                We understand that we have a responsibility to our stakeholders, the environment, and society as a whole, and we take that
-                responsibility very seriously.
+    <!-- Hero -->
+    <section class="relative min-h-[80vh] overflow-hidden bg-primary">
+        <img
+            use:heroParallax={0.4}
+            src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=1600"
+            alt="Sustainability nature"
+            class="absolute inset-0 h-full w-full object-cover opacity-40"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-primary/30 via-primary/40 to-primary/70"></div>
+        <div class="relative z-10 flex min-h-[80vh] flex-col justify-between px-6 pb-16 pt-24 lg:px-20">
+            <div>
+                <nav use:animate={{ type: 'fadeDown', delay: 0.1 }} class="mb-8 flex items-center gap-2 text-xs text-primary-foreground/40">
+                    <Link href="/" class="hover:text-primary-foreground/70 transition-colors">Home</Link>
+                    <span>/</span>
+                    <span class="text-primary-foreground/70">Sustainability</span>
+                </nav>
+                <p use:animate={{ type: 'fadeUp', delay: 0.2 }} class="editorial-label-light mb-6">Our Values</p>
+                <h1 use:splitText={{ delay: 0.4 }} class="editorial-heading max-w-3xl text-5xl font-semibold text-primary-foreground sm:text-6xl lg:text-7xl">
+                    Investing for a Sustainable Planet
+                </h1>
+            </div>
+            <p use:animate={{ type: 'fadeUp', delay: 0.8 }} class="max-w-md text-sm leading-relaxed text-primary-foreground/60">
+                Sustainability is at the core of how we think about risk and return. The businesses that will create the most value are those built for the long term.
             </p>
         </div>
-        <div class="absolute -z-10 -top-20 -right-20 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl"></div>
-        <div class="absolute -z-10 bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent"></div>
-    </header>
+    </section>
 
-    <!-- Our Approach (Split Section) -->
-    <section class="py-24 bg-white dark:bg-primary/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="relative">
-                    <div class="absolute inset-0 bg-emerald-500/10 transform -translate-x-4 translate-y-4 rounded-xl"></div>
-                    <img
-                        src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&q=80&w=800"
-                        alt="Green Energy"
-                        class="relative rounded-xl shadow-lg w-full h-auto object-cover aspect-[4/3]"
-                    />
+    <!-- Targets band -->
+    <section class="border-y border-border/40">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div use:animate={{ type: 'stagger' }} class="grid grid-cols-2 divide-x divide-y md:grid-cols-4 md:divide-y-0 divide-border/30">
+                {#each targets as t}
+                    <div class="px-8 py-10 text-center">
+                        <p class="text-3xl font-semibold text-foreground lg:text-4xl">{t.value}</p>
+                        <p class="mt-1 text-xs uppercase tracking-[0.15em] text-muted-foreground">{t.label}</p>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </section>
+
+    <!-- Split editorial -->
+    <section class="py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-16 lg:grid-cols-[55%_1fr]">
+                <div use:animate={{ type: 'fadeUp', delay: 0.1 }}>
+                    <p class="editorial-label mb-6">Our Targets</p>
+                    <h2 use:splitText={{ delay: 0.3 }} class="editorial-heading text-4xl font-semibold text-foreground sm:text-5xl">
+                        Concrete commitments, measurable progress
+                    </h2>
                 </div>
-                <div>
-                    <h2 class="font-serif text-3xl md:text-4xl text-primary dark:text-white mb-6">A Commitment to Action</h2>
-                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                        At every level of our organization, we have made a commitment to sustainability. From our supply chain to our operations, we
-                        are constantly looking for ways to reduce our environmental impact and create positive social change.
-                    </p>
-                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                        We believe that this commitment is not only the right thing to do, but it is also good for business. By integrating
-                        sustainability into our business practices, we foster resilience and drive long-term value.
-                    </p>
-                    <div class="grid grid-cols-2 gap-6 mt-8">
-                        <div>
-                            <div class="text-3xl font-serif text-emerald-600 dark:text-emerald-400 font-bold mb-1">96+</div>
-                            <div class="text-sm text-gray-500 dark:text-gray-400">Remote Locations</div>
+                <div use:animate={{ type: 'stagger', stagger: 0.1 }} class="space-y-8 pt-2 lg:pt-12">
+                    {#each [
+                        { title: 'Net Zero by 2040', body: 'Our portfolio net-zero commitment is ahead of the Paris Agreement timeline and covers Scope 1, 2, and 3 emissions.' },
+                        { title: 'Annual Impact Report', body: 'Comprehensive annual reporting on environmental footprint, progress against targets, and methodology for all calculations.' },
+                        { title: 'Green Financing', body: 'We have committed to directing 30% of all new investment to activities directly supporting the green transition.' },
+                    ] as block}
+                        <div class="border-t border-border/40 pt-5">
+                            <h3 class="text-base font-semibold text-foreground">{block.title}</h3>
+                            <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{block.body}</p>
                         </div>
-                        <div>
-                            <div class="text-3xl font-serif text-emerald-600 dark:text-emerald-400 font-bold mb-1">100%</div>
-                            <div class="text-sm text-gray-500 dark:text-gray-400">Ethical Sourcing</div>
-                        </div>
-                    </div>
+                    {/each}
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Key Pillars Grid -->
-    <section class="py-24 bg-background-light dark:bg-background-dark border-t border-primary/5 dark:border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-emerald-600 dark:text-emerald-400 font-bold text-sm tracking-wider uppercase mb-2 block">Our Pillars</span>
-                <h2 class="font-serif text-3xl md:text-4xl text-primary dark:text-white mb-6">Integrated Sustainability</h2>
-                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    We recognize that sustainability is multifaceted. Here is how we address it across our ecosystem.
-                </p>
-            </div>
+    <!-- Large image band -->
+    <section use:animate={{ type: 'reveal' }} class="overflow-hidden">
+        <div class="aspect-[21/7]">
+            <img
+                use:heroParallax={0.3}
+                src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&q=80&w=2000"
+                alt="Sustainable forest"
+                class="h-full w-full object-cover"
+            />
+        </div>
+    </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Pillar 1 -->
-                <div
-                    class="bg-white dark:bg-white/5 p-8 rounded-xl shadow-sm border border-primary/5 dark:border-white/10 hover:border-emerald-500/30 transition-colors"
-                >
-                    <div class="w-12 h-12 bg-emerald-500/10 rounded-lg flex items-center justify-center mb-6 text-emerald-600 dark:text-emerald-400">
-                        <span class="material-icons">local_shipping</span>
-                    </div>
-                    <h3 class="font-serif text-xl text-primary dark:text-white mb-3">Supply Chain</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                        We work closely with our suppliers to ensure that they meet our standards for sustainability. This includes everything from
-                        ethical sourcing to reducing carbon emissions across the logistics network.
-                    </p>
+    <!-- Dark accordion -->
+    <section class="bg-primary py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-16 lg:grid-cols-[40%_1fr]">
+                <div use:animate={{ type: 'fadeUp', delay: 0.1 }}>
+                    <p class="editorial-label-light mb-6">Key Initiatives</p>
+                    <h2 class="editorial-heading text-4xl font-semibold text-primary-foreground sm:text-5xl">
+                        Where we focus our sustainability efforts
+                    </h2>
                 </div>
-
-                <!-- Pillar 2 -->
-                <div
-                    class="bg-white dark:bg-white/5 p-8 rounded-xl shadow-sm border border-primary/5 dark:border-white/10 hover:border-emerald-500/30 transition-colors"
-                >
-                    <div class="w-12 h-12 bg-emerald-500/10 rounded-lg flex items-center justify-center mb-6 text-emerald-600 dark:text-emerald-400">
-                        <span class="material-icons">factory</span>
-                    </div>
-                    <h3 class="font-serif text-xl text-primary dark:text-white mb-3">Operations</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                        We are committed to reducing our environmental impact by investing in renewable energy, implementing energy-efficient
-                        technologies, and striving to use resources efficiently to reduce waste.
-                    </p>
-                </div>
-
-                <!-- Pillar 3 -->
-                <div
-                    class="bg-white dark:bg-white/5 p-8 rounded-xl shadow-sm border border-primary/5 dark:border-white/10 hover:border-emerald-500/30 transition-colors"
-                >
-                    <div class="w-12 h-12 bg-emerald-500/10 rounded-lg flex items-center justify-center mb-6 text-emerald-600 dark:text-emerald-400">
-                        <span class="material-icons">groups</span>
-                    </div>
-                    <h3 class="font-serif text-xl text-primary dark:text-white mb-3">Social Impact</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                        We are committed to creating positive change in the communities where we operate. This includes supporting local businesses
-                        and investing in education and training programs to empower future generations.
-                    </p>
+                <div use:animate={{ type: 'stagger', stagger: 0.08 }}>
+                    {#each initiatives as i}
+                        <button class="accordion-row-light w-full text-left" onclick={() => (activeItem = activeItem === i.id ? null : i.id)}>
+                            <span class="text-sm font-medium text-primary-foreground">{i.title}</span>
+                            <span class="shrink-0 text-lg font-light text-primary-foreground/40 {activeItem === i.id ? 'rotate-45' : ''}">+</span>
+                        </button>
+                        {#if activeItem === i.id}
+                            <p class="pb-4 pt-2 text-sm leading-relaxed text-primary-foreground/60">{i.desc}</p>
+                        {/if}
+                    {/each}
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Investment Success -->
-    <section class="py-20 bg-emerald-900/5 dark:bg-emerald-900/20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="order-2 lg:order-1">
-                    <h2 class="font-serif text-3xl md:text-4xl text-primary dark:text-white mb-6">Sustainable Investments</h2>
-                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                        We have seen great success in our sustainability-focused investments. By investing in companies that share our commitment, we
-                        are supporting positive social and environmental change while generating strong financial returns.
-                    </p>
-                    <ul class="space-y-4">
-                        <li class="flex gap-4">
-                            <span class="material-icons text-emerald-600 dark:text-emerald-400 shrink-0">trending_up</span>
-                            <div>
-                                <h4 class="font-bold text-primary dark:text-white">Market Outperformance</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">
-                                    Our investments in companies with strong sustainability practices have significantly outperformed the market.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="flex gap-4">
-                            <span class="material-icons text-emerald-600 dark:text-emerald-400 shrink-0">bolt</span>
-                            <div>
-                                <h4 class="font-bold text-primary dark:text-white">Renewable Energy Returns</h4>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">
-                                    Investments in renewable energy sectors have generated consistent, solid returns.
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
+    <!-- CTA -->
+    <section class="py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:items-center">
+                <h2 use:splitText={{ delay: 0.2 }} class="editorial-heading text-3xl font-semibold text-foreground sm:text-4xl">
+                    Build a portfolio that's good for the planet and your wealth.
+                </h2>
+                <div use:animate={{ type: 'fadeUp', delay: 0.3 }} class="flex flex-col gap-4 sm:flex-row md:justify-end">
+                    <Link href="/esg-responsible-investment" class="inline-flex items-center justify-center border border-foreground px-8 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-foreground hover:text-background">
+                        Our ESG Approach
+                    </Link>
+                    <Link href="/contact-us" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40 hover:text-foreground transition-colors">
+                        Contact Us →
+                    </Link>
                 </div>
-                <div class="relative order-1 lg:order-2">
-                    <img
-                        src="https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?auto=format&fit=crop&q=80&w=800"
-                        alt="Sustainable Growth"
-                        class="relative rounded-xl shadow-lg w-full h-auto object-cover aspect-[4/3] grayscale hover:grayscale-0 transition-all duration-500"
-                    />
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer CTA -->
-    <section class="relative bg-primary text-white py-20 overflow-hidden">
-        <div
-            class="absolute inset-0 opacity-10"
-            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDJgfkV4p5ejGJOCARfhxekNuQWwk-b9Hq0F5tnya6cQe6qqOUCTczb97oABQtJzZb41fEc_oH659AwnV-HzUlxcXbjxp3uS_BdGN3lx2WbqlO0qFmmtEgMnhdvPEWxQg_2pQ2m-VBqm1kgusevag5Jce9VYTSPJmxTdzjV05xnN8LH2SJHTgT7eH3e2KMDVg_2VDN9ll16SRzSxbTtahFVJ_udWwdGUTwwVPcUqtKlC4TnsTUphp8h6djZWtTkgohtbewXdaiz96s');"
-        ></div>
-        <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
-            <h2 class="font-serif text-3xl md:text-5xl mb-6">Drive Sustainable Growth</h2>
-            <p class="text-gray-300 text-lg mb-10 max-w-2xl mx-auto">Partner with us to create value that lasts for generations to come.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                    href="/contact-us"
-                    class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-full text-base font-medium transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
-                >
-                    Contact Us
-                </Link>
             </div>
         </div>
     </section>

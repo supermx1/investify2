@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
     import Layout from '@/components/frontend/Layout.svelte';
     import { useForm } from '@inertiajs/svelte';
-    import { fade, fly } from 'svelte/transition';
     import { SYSTEM } from '@/lib/store';
     import { Loader } from 'lucide-svelte';
     import { toast } from 'svelte-sonner';
+    import { animate, splitText, heroParallax, magnetic } from '@/lib/gsap';
 
     let coordinates = $state({
         latitude: '40.7058',
@@ -23,104 +23,61 @@
         e.preventDefault();
         toast.success('Message sent successfully!');
         // $form.post('/contact-us', {
-        //     onSuccess: () => {
-        //         form.reset();
-        //         toast.success('Message sent successfully!');
-        //     },
-        //     onError: () => {
-        //         toast.error('Failed to send message!');
-        //     },
+        //     onSuccess: () => { form.reset(); toast.success('Message sent successfully!'); },
+        //     onError: () => { toast.error('Failed to send message!'); },
         // });
     }
 </script>
 
 <Layout>
-    <header class="relative bg-primary text-white pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 z-0 opacity-10">
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M0 40L40 0H20L0 20M40 40V20L20 40" stroke="white" stroke-width="1" fill="none" />
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#grid-pattern)" />
-            </svg>
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span
-                class="inline-block py-1 px-3 rounded-full bg-accent-gold/10 text-accent-gold text-xs font-semibold tracking-wider uppercase mb-6 border border-accent-gold/20"
-            >
-                Get in Touch
-            </span>
-            <h1 class="font-serif text-5xl md:text-6xl font-medium leading-tight mb-6">
-                Start the <span class="italic text-accent-gold">Conversation</span>.
-            </h1>
-            <p class="text-xl text-gray-300 max-w-2xl mx-auto font-light leading-relaxed">
-                Whether you’re looking to protect your wealth, explore new investment opportunities, or plan for future generations, we’re here to
-                help.
+    <!-- Hero -->
+    <section class="relative min-h-[50vh] overflow-hidden bg-primary">
+        <img
+            use:heroParallax={0.3}
+            src="https://images.unsplash.com/photo-1464082354059-27db6ce50048?auto=format&fit=crop&q=80&w=1600"
+            alt="London office building"
+            class="absolute inset-0 h-full w-full object-cover opacity-40"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-primary/30 via-primary/50 to-primary/70"></div>
+        <div class="relative z-10 flex min-h-[50vh] flex-col justify-between px-6 pb-16 pt-24 lg:px-20">
+            <div class="max-w-3xl">
+                <p use:animate={{ type: 'fadeUp', delay: 0.2 }} class="editorial-label-light mb-6">Contact</p>
+                <h1 use:splitText={{ delay: 0.4 }} class="editorial-heading text-5xl font-semibold text-primary-foreground sm:text-6xl lg:text-7xl">
+                    Start the Conversation
+                </h1>
+            </div>
+            <p use:animate={{ type: 'fadeUp', delay: 0.8 }} class="max-w-md text-sm leading-relaxed text-primary-foreground/60">
+                Whether you're looking to protect your wealth, explore new investment opportunities, or plan for future generations, we're here to help.
             </p>
         </div>
-    </header>
+    </section>
 
-    <section class="py-24 bg-white dark:bg-background-dark relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                <!-- Contact Information -->
-                <div class="animate-fade-in-up">
-                    <h2 class="font-serif text-3xl font-medium text-primary dark:text-white mb-8">Contact Information</h2>
+    <!-- Main content: info left, form right -->
+    <section class="py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-16 lg:grid-cols-2">
+                <!-- Left: Contact Info + Map -->
+                <div use:animate={{ type: 'fadeLeft' }}>
+                    <p class="editorial-label mb-10">Get in Touch</p>
 
                     <div class="space-y-8">
-                        <div class="flex items-start gap-6 group">
-                            <div
-                                class="w-12 h-12 rounded-full bg-primary/5 dark:bg-white/10 flex items-center justify-center text-primary dark:text-accent-gold shadow-sm group-hover:bg-accent-gold group-hover:text-white transition-all duration-300"
-                            >
-                                <span class="material-icons">location_on</span>
+                        {#each [
+                            { label: 'Headquarters', value: '100 Financial District Blvd, Suite 4500, New York, NY 10005', sub: null },
+                            { label: 'Phone', value: $SYSTEM.phone ?? '+1 (555) 000-0000', sub: 'Mon–Fri, 9am–6pm EST' },
+                            { label: 'Email', value: $SYSTEM.email ?? 'hello@company.com', sub: 'We typically reply within 24 hours' },
+                        ] as item}
+                            <div class="border-t border-border/40 pt-5">
+                                <p class="text-xs uppercase tracking-[0.15em] text-muted-foreground">{item.label}</p>
+                                <p class="mt-2 text-sm text-foreground">{item.value}</p>
+                                {#if item.sub}
+                                    <p class="mt-1 text-xs text-muted-foreground">{item.sub}</p>
+                                {/if}
                             </div>
-                            <div>
-                                <h3 class="font-serif text-xl font-medium text-primary dark:text-white mb-2">Headquarters</h3>
-                                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-                                    100 Financial District Blvd,<br />
-                                    Suite 4500<br />
-                                    New York, NY 10005
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-6 group">
-                            <div
-                                class="w-12 h-12 rounded-full bg-primary/5 dark:bg-white/10 flex items-center justify-center text-primary dark:text-accent-gold shadow-sm group-hover:bg-accent-gold group-hover:text-white transition-all duration-300"
-                            >
-                                <span class="material-icons">phone</span>
-                            </div>
-                            <div>
-                                <h3 class="font-serif text-xl font-medium text-primary dark:text-white mb-2">Phone</h3>
-                                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-                                    <a href="tel:{$SYSTEM.phone}" class="hover:text-accent-gold transition-colors">{$SYSTEM.phone}</a>
-                                </p>
-                                <p class="text-sm text-gray-500 mt-1">Mon-Fri, 9am - 6pm EST</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-6 group">
-                            <div
-                                class="w-12 h-12 rounded-full bg-primary/5 dark:bg-white/10 flex items-center justify-center text-primary dark:text-accent-gold shadow-sm group-hover:bg-accent-gold group-hover:text-white transition-all duration-300"
-                            >
-                                <span class="material-icons">email</span>
-                            </div>
-                            <div>
-                                <h3 class="font-serif text-xl font-medium text-primary dark:text-white mb-2">Email</h3>
-                                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-                                    <a href="mailto:{$SYSTEM.email}" class="hover:text-accent-gold transition-colors">{$SYSTEM.email}</a>
-                                </p>
-                                <p class="text-sm text-gray-500 mt-1">We typically reply within 24 hours.</p>
-                            </div>
-                        </div>
+                        {/each}
                     </div>
 
-                    <!-- Map Location -->
-                    <div class="mt-12 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10 h-64 relative group">
+                    <!-- Map -->
+                    <div class="mt-12 overflow-hidden border border-border/40" style="height: 260px;">
                         <iframe
                             title="Map Location"
                             width="100%"
@@ -130,38 +87,32 @@
                             marginheight="0"
                             marginwidth="0"
                             src="https://www.openstreetmap.org/export/embed.html?bbox=-74.0293%2C40.6858%2C-73.9893%2C40.7258&amp;layer=mapnik&amp;marker={coordinates.latitude}%2C{coordinates.longitude}"
-                            class="w-full h-full grayscale hover:grayscale-0 transition-all duration-500"
+                            class="w-full h-full grayscale"
                         ></iframe>
-                        <div class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors pointer-events-none"></div>
-                        <div
-                            class="absolute bottom-4 left-4 bg-white dark:bg-primary px-4 py-2 rounded shadow-md text-xs font-medium text-primary dark:text-white pointer-events-none"
-                        >
-                            Financial District, NY
-                        </div>
                     </div>
                 </div>
 
-                <!-- Contact Form -->
-                <div class="bg-background-light dark:bg-white/5 rounded-2xl p-8 md:p-12 animate-fade-in-up" style="animation-delay: 0.2s;">
-                    <h2 class="font-serif text-3xl font-medium text-primary dark:text-white mb-6">Send us a Message</h2>
+                <!-- Right: Form -->
+                <div use:animate={{ type: 'fadeRight', delay: 0.2 }}>
+                    <p class="editorial-label mb-10">Send a Message</p>
 
-                    <form onsubmit={submit} class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <form onsubmit={submit} class="space-y-8">
+                        <div class="grid grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-medium text-primary dark:text-gray-300 mb-2" for="firstName">First Name</label>
+                                <label class="block text-xs text-muted-foreground mb-2" for="firstName">First Name</label>
                                 <input
                                     bind:value={$form.firstName}
-                                    class="w-full px-4 py-3 rounded-lg bg-white dark:bg-white/5 border-transparent focus:border-accent-gold focus:ring-0 transition-colors text-primary dark:text-white shadow-sm"
+                                    class="w-full border-b border-border bg-transparent pb-3 text-sm text-foreground placeholder-muted-foreground/40 focus:border-foreground focus:outline-none transition-colors"
                                     id="firstName"
                                     placeholder="Jane"
                                     type="text"
                                 />
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-primary dark:text-gray-300 mb-2" for="lastName">Last Name</label>
+                                <label class="block text-xs text-muted-foreground mb-2" for="lastName">Last Name</label>
                                 <input
                                     bind:value={$form.lastName}
-                                    class="w-full px-4 py-3 rounded-lg bg-white dark:bg-white/5 border-transparent focus:border-accent-gold focus:ring-0 transition-colors text-primary dark:text-white shadow-sm"
+                                    class="w-full border-b border-border bg-transparent pb-3 text-sm text-foreground placeholder-muted-foreground/40 focus:border-foreground focus:outline-none transition-colors"
                                     id="lastName"
                                     placeholder="Doe"
                                     type="text"
@@ -169,20 +120,20 @@
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-primary dark:text-gray-300 mb-2" for="email">Email Address</label>
+                            <label class="block text-xs text-muted-foreground mb-2" for="email">Email Address</label>
                             <input
                                 bind:value={$form.email}
-                                class="w-full px-4 py-3 rounded-lg bg-white dark:bg-white/5 border-transparent focus:border-accent-gold focus:ring-0 transition-colors text-primary dark:text-white shadow-sm"
+                                class="w-full border-b border-border bg-transparent pb-3 text-sm text-foreground placeholder-muted-foreground/40 focus:border-foreground focus:outline-none transition-colors"
                                 id="email"
                                 placeholder="jane@example.com"
                                 type="email"
                             />
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-primary dark:text-gray-300 mb-2" for="subject">Subject</label>
+                            <label class="block text-xs text-muted-foreground mb-2" for="subject">Area of Interest</label>
                             <select
                                 bind:value={$form.interest}
-                                class="w-full px-4 py-3 rounded-lg bg-white dark:bg-white/5 border-transparent focus:border-accent-gold focus:ring-0 transition-colors text-primary dark:text-white shadow-sm"
+                                class="w-full border-b border-border bg-transparent pb-3 text-sm text-foreground focus:border-foreground focus:outline-none transition-colors"
                                 id="subject"
                             >
                                 <option>General Inquiry</option>
@@ -193,28 +144,30 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-primary dark:text-gray-300 mb-2" for="message">Message</label>
+                            <label class="block text-xs text-muted-foreground mb-2" for="message">Message</label>
                             <textarea
                                 bind:value={$form.message}
-                                class="w-full px-4 py-3 rounded-lg bg-white dark:bg-white/5 border-transparent focus:border-accent-gold focus:ring-0 transition-colors text-primary dark:text-white shadow-sm resize-none"
+                                class="w-full border-b border-border bg-transparent pb-3 text-sm text-foreground placeholder-muted-foreground/40 focus:border-foreground focus:outline-none transition-colors resize-none"
                                 id="message"
                                 placeholder="How can we help you?"
-                                rows="5"
+                                rows="4"
                             ></textarea>
                         </div>
 
-                        <button
-                            class="w-full bg-primary hover:bg-primary-light text-white px-8 py-4 rounded-lg text-sm font-medium transition-all shadow-lg hover:shadow-xl flex justify-center items-center gap-2"
-                            type="submit"
-                            disabled={$form.processing}
-                        >
-                            {#if $form.processing}
-                                <Loader class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
-                                Sending...
-                            {:else}
-                                Send Message <span class="material-icons text-sm">send</span>
-                            {/if}
-                        </button>
+                        <div class="pt-2">
+                            <button
+                                class="inline-flex items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all disabled:opacity-50"
+                                type="submit"
+                                disabled={$form.processing}
+                            >
+                                {#if $form.processing}
+                                    <Loader class="h-4 w-4 animate-spin" />
+                                    Sending...
+                                {:else}
+                                    Send a request →
+                                {/if}
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -1,262 +1,266 @@
-<script>
+<script lang="ts">
     import Layout from '@/components/frontend/Layout.svelte';
-    import { onMount } from 'svelte';
-    import { fade, fly } from 'svelte/transition';
     import { Link } from '@inertiajs/svelte';
+    import { animate, splitText, heroParallax, magnetic } from '@/lib/gsap';
 
-    let mounted = $state(false);
-    onMount(() => {
-        mounted = true;
-    });
+    let activeBenefit = $state<string | null>(null);
+
+    const whyJoin = [
+        { num: '01', title: 'Curated Network', body: 'Connect with a vetted community of high-net-worth investors, entrepreneurs, and industry leaders who share your ambition.' },
+        { num: '02', title: 'Institutional Opportunities', body: 'Access investment opportunities with minimums and terms typically reserved for institutional capital.' },
+        { num: '03', title: 'Knowledge Edge', body: 'Stay ahead with proprietary research, economic briefings, and real-time portfolio intelligence.' },
+    ];
+
+    const tiers = [
+        {
+            name: 'Select',
+            minimum: '$1M+',
+            features: [
+                'Quarterly investment forums',
+                'Monthly market intelligence reports',
+                'Dedicated relationship manager',
+                'Co-investment opportunities',
+                'Member networking events',
+            ],
+        },
+        {
+            name: 'Premier',
+            minimum: '$5M+',
+            features: [
+                'Everything in Select, plus:',
+                'Pre-IPO deal access',
+                'Private placement priority',
+                'Sector-specific briefings',
+                'Annual strategy retreat',
+                'Tax optimization consulting',
+            ],
+        },
+        {
+            name: 'Institutional',
+            minimum: '$25M+',
+            features: [
+                'Everything in Premier, plus:',
+                'Bespoke portfolio construction',
+                'Direct access to senior partners',
+                'Custom research on demand',
+                'Global macro advisory',
+                'Family office integration',
+                'Legacy & succession planning',
+            ],
+        },
+    ];
+
+    const benefits = [
+        { id: 'access', title: 'Exclusive Deal Access', desc: 'Early access to pre-IPO opportunities, private placements, and co-investments alongside our institutional partners.' },
+        { id: 'events', title: 'Member Events', desc: 'Quarterly investment forums, sector briefings, and curated networking events with industry leaders and fellow members.' },
+        { id: 'research', title: 'Proprietary Research', desc: 'Monthly market intelligence reports and sector outlooks prepared exclusively for Wealth Club members.' },
+        { id: 'advisory', title: 'Priority Advisory', desc: 'Dedicated relationship manager and priority access to our senior investment team for strategic guidance.' },
+        { id: 'network', title: 'Private Network', desc: 'An invitation-only community of like-minded investors, entrepreneurs, and thought leaders across industries.' },
+        { id: 'concierge', title: 'Concierge Services', desc: 'White-glove support for portfolio reviews, event coordination, and bespoke investment structuring.' },
+    ];
 </script>
 
 <Layout>
-
-    <!-- Hero Section -->
-    <section class="relative pt-32 pb-24 lg:pt-48 lg:pb-40 overflow-hidden bg-background-light dark:bg-background-dark">
-        <!-- Abstract Background Pattern -->
-        <div class="absolute inset-0 z-0 opacity-30 pointer-events-none">
-            <div
-                class="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-b from-gray-200 to-transparent dark:from-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"
-            ></div>
-            <div
-                class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-t from-accent-gold/20 to-transparent rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"
-            ></div>
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            {#if mounted}
-                <div
-                    in:fade={{ duration: 800, delay: 100 }}
-                    class="inline-block py-1 px-3 rounded-full bg-primary/5 dark:bg-accent-gold/5 text-primary dark:text-accent-gold text-xs font-semibold tracking-widest uppercase mb-8 border border-primary/10 dark:border-accent-gold/10 font-display"
-                >
-                    Invitation Only
-                </div>
+    <!-- 1. Split Hero -->
+    <section class="grid min-h-screen lg:grid-cols-2">
+        <div class="relative flex flex-col justify-between bg-primary px-6 pb-16 pt-24 lg:px-16">
+            <div>
+                <nav class="mb-8 flex items-center gap-2 text-xs text-primary-foreground/40" use:animate={{ type: 'fadeDown', delay: 0.1 }}>
+                    <Link href="/" class="transition-colors hover:text-primary-foreground/70">Home</Link>
+                    <span>/</span>
+                    <span class="text-primary-foreground/70">Wealth Club</span>
+                </nav>
+                <p class="editorial-label-light mb-6" use:animate={{ type: 'fadeUp', delay: 0.2 }}>Membership</p>
                 <h1
-                    in:fly={{ y: 20, duration: 800, delay: 300 }}
-                    class="text-5xl md:text-7xl lg:text-8xl font-serif font-medium text-primary dark:text-white mb-8 leading-tight tracking-tight"
+                    class="editorial-heading max-w-xl text-5xl font-semibold text-primary-foreground sm:text-6xl lg:text-7xl"
+                    use:splitText={{ delay: 0.4 }}
                 >
-                    Wealth Beyond <br />
-                    <span class="italic text-gray-400 dark:text-gray-600 font-light">Management.</span>
+                    The Inner Circle of Serious Investors
                 </h1>
-                <p
-                    in:fly={{ y: 20, duration: 800, delay: 500 }}
-                    class="mt-4 max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-300 font-light leading-relaxed font-display"
-                >
-                    Access to off-market opportunities, personalized estate planning, and a network of global leaders. Designed for the 0.1%.
-                </p>
-                <div in:fly={{ y: 20, duration: 800, delay: 700 }} class="mt-12 flex justify-center gap-6">
-                    <button
-                        class="px-10 py-4 bg-accent-gold hover:bg-accent-gold/90 text-white rounded-full font-medium text-lg transition-all shadow-lg shadow-accent-gold/20 flex items-center gap-2 group font-display"
-                    >
-                        Request Invitation
-                        <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                    </button>
-                </div>
-                <p
-                    in:fly={{ y: 20, duration: 800, delay: 900 }}
-                    class="mt-6 text-xs text-gray-400 dark:text-gray-600 uppercase tracking-widest font-display"
-                >
-                    Limited Intake for Q4 2023
-                </p>
-            {/if}
-        </div>
-    </section>
-
-    <!-- The Privilege Grid -->
-    <section class="py-24 bg-white dark:bg-background-dark relative border-t border-gray-100 dark:border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-20">
-                <h2 class="text-3xl md:text-4xl font-serif text-primary dark:text-white mb-4">The Privileges</h2>
-                <div class="h-1 w-20 bg-accent-gold mx-auto"></div>
-                <p class="mt-4 text-gray-500 dark:text-gray-400 font-display">Curated specifically for ultra-high-net-worth individuals.</p>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div
-                    class="group p-8 bg-background-light dark:bg-white/5 rounded-lg border border-transparent hover:border-accent-gold transition-all duration-300"
-                >
-                    <div
-                        class="w-12 h-12 rounded-full bg-primary/5 dark:bg-white/10 flex items-center justify-center mb-6 group-hover:bg-accent-gold/10 transition-colors"
-                    >
-                        <span class="material-icons text-primary dark:text-white group-hover:text-accent-gold transition-colors">vpn_key</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-primary dark:text-white mb-3 font-serif">Private Equity Access</h3>
-                    <p class="text-gray-600 dark:text-gray-400 font-light leading-relaxed font-display">
-                        Direct entry into pre-IPO rounds and exclusive venture capital funds not available to the public market.
-                    </p>
-                </div>
-
-                <!-- Card 2 -->
-                <div
-                    class="group p-8 bg-background-light dark:bg-white/5 rounded-lg border border-transparent hover:border-accent-gold transition-all duration-300"
-                >
-                    <div
-                        class="w-12 h-12 rounded-full bg-primary/5 dark:bg-white/10 flex items-center justify-center mb-6 group-hover:bg-accent-gold/10 transition-colors"
-                    >
-                        <span class="material-icons text-primary dark:text-white group-hover:text-accent-gold transition-colors">room_service</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-primary dark:text-white mb-3 font-serif">Concierge Banking</h3>
-                    <p class="text-gray-600 dark:text-gray-400 font-light leading-relaxed font-display">
-                        24/7 dedicated liaison for liquidity management, cross-border transfers, and complex asset acquisition.
-                    </p>
-                </div>
-
-                <!-- Card 3 -->
-                <div
-                    class="group p-8 bg-background-light dark:bg-white/5 rounded-lg border border-transparent hover:border-accent-gold transition-all duration-300"
-                >
-                    <div
-                        class="w-12 h-12 rounded-full bg-primary/5 dark:bg-white/10 flex items-center justify-center mb-6 group-hover:bg-accent-gold/10 transition-colors"
-                    >
-                        <span class="material-icons text-primary dark:text-white group-hover:text-accent-gold transition-colors">diversity_2</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-primary dark:text-white mb-3 font-serif">Legacy Planning</h3>
-                    <p class="text-gray-600 dark:text-gray-400 font-light leading-relaxed font-display">
-                        Sophisticated trust structures and multi-generational wealth transfer strategies tailored to your family's vision.
-                    </p>
-                </div>
-
-                <!-- Card 4 -->
-                <div
-                    class="group p-8 bg-background-light dark:bg-white/5 rounded-lg border border-transparent hover:border-accent-gold transition-all duration-300"
-                >
-                    <div
-                        class="w-12 h-12 rounded-full bg-primary/5 dark:bg-white/10 flex items-center justify-center mb-6 group-hover:bg-accent-gold/10 transition-colors"
-                    >
-                        <span class="material-icons text-primary dark:text-white group-hover:text-accent-gold transition-colors">public</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-primary dark:text-white mb-3 font-serif">Global Summits</h3>
-                    <p class="text-gray-600 dark:text-gray-400 font-light leading-relaxed font-display">
-                        Invitations to closed-door economic forums in Davos, Singapore, and New York with world leaders.
-                    </p>
-                </div>
-
-                <!-- Card 5 -->
-                <div
-                    class="group p-8 bg-background-light dark:bg-white/5 rounded-lg border border-transparent hover:border-accent-gold transition-all duration-300"
-                >
-                    <div
-                        class="w-12 h-12 rounded-full bg-primary/5 dark:bg-white/10 flex items-center justify-center mb-6 group-hover:bg-accent-gold/10 transition-colors"
-                    >
-                        <span class="material-icons text-primary dark:text-white group-hover:text-accent-gold transition-colors">gavel</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-primary dark:text-white mb-3 font-serif">Legal Retainers</h3>
-                    <p class="text-gray-600 dark:text-gray-400 font-light leading-relaxed font-display">
-                        On-demand access to top-tier legal counsel for international property, tax law, and corporate structuring.
-                    </p>
-                </div>
-
-                <!-- Card 6 -->
-                <div
-                    class="group p-8 bg-background-light dark:bg-white/5 rounded-lg border border-transparent hover:border-accent-gold transition-all duration-300"
-                >
-                    <div
-                        class="w-12 h-12 rounded-full bg-primary/5 dark:bg-white/10 flex items-center justify-center mb-6 group-hover:bg-accent-gold/10 transition-colors"
-                    >
-                        <span class="material-icons text-primary dark:text-white group-hover:text-accent-gold transition-colors">security</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-primary dark:text-white mb-3 font-serif">Asset Protection</h3>
-                    <p class="text-gray-600 dark:text-gray-400 font-light leading-relaxed font-display">
-                        Advanced strategies to insulate your wealth from market volatility and liability, ensuring long-term preservation.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonial Section -->
-    <section class="py-24 bg-primary text-white relative overflow-hidden">
-        <div
-            class="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none"
-            style="background-image: radial-gradient(#C5A059 1px, transparent 1px); background-size: 32px 32px;"
-        ></div>
-        <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
-            <span class="text-6xl text-accent-gold font-serif opacity-50">"</span>
-            <blockquote class="text-3xl md:text-4xl lg:text-5xl font-serif leading-tight mb-8 text-white/90">
-                The level of discretion and access provided by The Wealth Club is unparalleled in the modern banking landscape.
-            </blockquote>
-            <cite class="not-italic flex flex-col items-center">
-                <span class="text-lg font-semibold tracking-wide font-display">Alexander V.</span>
-                <span class="text-accent-gold text-sm uppercase tracking-widest mt-1 font-display">Founding Member since 2018</span>
-            </cite>
-        </div>
-    </section>
-
-    <!-- Membership Criteria -->
-    <section class="py-24 bg-background-light dark:bg-background-dark">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="relative h-96 w-full rounded-lg overflow-hidden shadow-2xl">
-                    <img
-                        alt="Abstract dark luxury texture with gold accents representing elite status"
-                        class="absolute inset-0 w-full h-full object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrrrfnrXWGvTtpVyIlO1Glh9i28QYzFjRw07g-RWkwGSwNFYIZQ1bVPrcD4BO8PmHDEAruq0BFcGheZzED8gDoG0Sds2qFNtXL1tHOZ2ewDPAdriQUUPwziq_gmZvmNmW-HMVxcBCJiy_TZtelI7vo4C8q_4NKnmdIFOeluRgnf5b2mz34pJoLAOlnTWLxGCqpZXf5f9Yuvto5RpShNemaKGR9WhtGKqTTdhFFE2ui3IopffuU40DNODYCom2_o-YVXnl3fEjPI7c"
-                    />
-                    <div class="absolute inset-0 bg-primary/40"></div>
-                    <div class="absolute bottom-8 left-8 text-white">
-                        <p class="text-sm uppercase tracking-widest mb-1 font-display">Status</p>
-                        <p class="text-3xl font-serif">Elite Tier</p>
-                    </div>
-                </div>
-                <div>
-                    <h2 class="text-3xl md:text-4xl font-serif text-primary dark:text-white mb-8">Membership Criteria</h2>
-                    <div class="space-y-8">
-                        <div class="flex gap-6 pb-8 border-b border-gray-200 dark:border-gray-700">
-                            <span class="text-accent-gold text-2xl font-serif font-bold">01.</span>
-                            <div>
-                                <h3 class="text-lg font-semibold text-primary dark:text-white mb-2 font-display">Minimum Liquidity</h3>
-                                <p class="text-gray-600 dark:text-gray-400 font-display">
-                                    Prospective members must demonstrate investable assets exceeding $10M USD to ensure alignment with our deal flow.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex gap-6 pb-8 border-b border-gray-200 dark:border-gray-700">
-                            <span class="text-accent-gold text-2xl font-serif font-bold">02.</span>
-                            <div>
-                                <h3 class="text-lg font-semibold text-primary dark:text-white mb-2 font-display">By Invitation or Referral</h3>
-                                <p class="text-gray-600 dark:text-gray-400 font-display">
-                                    Membership is capped at 500 families globally. Entry is granted strictly via current member referral or board
-                                    invitation.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex gap-6">
-                            <span class="text-accent-gold text-2xl font-serif font-bold">03.</span>
-                            <div>
-                                <h3 class="text-lg font-semibold text-primary dark:text-white mb-2 font-display">Fiduciary Alignment</h3>
-                                <p class="text-gray-600 dark:text-gray-400 font-display">
-                                    We require a preliminary compatibility assessment to ensure our fiduciary standards match your long-term goals.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="py-20 bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800">
-        <div class="max-w-3xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-serif text-primary dark:text-white mb-6">Experience the Exceptional</h2>
-            <p class="text-gray-600 dark:text-gray-400 mb-10 text-lg font-display">
-                If you meet the criteria and wish to be considered for the next intake, please submit your credentials securely.
+            <p class="max-w-sm text-sm leading-relaxed text-primary-foreground/60" use:animate={{ type: 'fadeUp', delay: 0.8 }}>
+                The Wealth Club is our invitation-only investment community for high-conviction investors seeking exclusive access and peer connections.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <button
-                    class="px-8 py-3 bg-primary text-white hover:bg-primary/90 dark:bg-white dark:text-primary dark:hover:bg-gray-100 rounded-full font-medium transition-colors font-display"
-                >
-                    Submit Credentials
-                </button>
-                <button
-                    class="px-8 py-3 border border-gray-300 dark:border-gray-600 text-primary dark:text-white hover:border-accent-gold hover:text-accent-gold dark:hover:border-accent-gold dark:hover:text-accent-gold rounded-full font-medium transition-colors font-display"
-                >
-                    Contact Liaison
-                </button>
+        </div>
+        <div class="relative hidden lg:block">
+            <img
+                src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&q=80&w=1600"
+                alt="Exclusive investor lounge"
+                class="absolute inset-0 h-full w-full object-cover"
+                use:heroParallax={0.4}
+            />
+        </div>
+    </section>
+
+    <!-- 2. Why Join -->
+    <section class="py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <h2
+                class="editorial-heading mx-auto mb-20 max-w-3xl text-center text-4xl font-semibold text-foreground sm:text-5xl"
+                use:splitText={{ delay: 0.2 }}
+            >
+                Where exceptional investors find exceptional opportunities
+            </h2>
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-3" use:animate={{ type: 'stagger' }}>
+                {#each whyJoin as card}
+                    <div class="border-t border-foreground/15 pt-8">
+                        <span class="font-serif text-3xl font-light text-muted-foreground/40">{card.num}</span>
+                        <h3 class="mt-4 text-lg font-semibold text-foreground">{card.title}</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-muted-foreground">{card.body}</p>
+                    </div>
+                {/each}
             </div>
         </div>
     </section>
 
+    <!-- 3. Membership Tiers -->
+    <section class="bg-muted/20 py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mb-16 text-center">
+                <p class="editorial-label mb-4" use:animate={{ type: 'fadeUp', delay: 0.1 }}>Tiers</p>
+                <h2 class="editorial-heading text-4xl font-semibold text-foreground sm:text-5xl" use:animate={{ type: 'fadeUp', delay: 0.2 }}>
+                    Choose your level of access
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-3" use:animate={{ type: 'stagger' }}>
+                {#each tiers as tier, i}
+                    <div class="flex flex-col border border-border/60 bg-background p-8 transition-shadow duration-300 hover:shadow-lg {i === 1 ? 'ring-1 ring-foreground/10' : ''}">
+                        <div class="mb-8">
+                            <h3 class="text-xl font-semibold text-foreground">{tier.name}</h3>
+                            <p class="mt-1 font-serif text-3xl font-light text-foreground/80">{tier.minimum}</p>
+                            <p class="mt-1 text-xs text-muted-foreground">minimum investment</p>
+                        </div>
+                        <ul class="mb-8 flex-1 space-y-3">
+                            {#each tier.features as feature}
+                                <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                                    <span class="mt-1 block h-1 w-1 shrink-0 rounded-full bg-foreground/30"></span>
+                                    {feature}
+                                </li>
+                            {/each}
+                        </ul>
+                        <Link
+                            href="/contact-us"
+                            class="inline-flex items-center justify-center border border-foreground px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground hover:text-background"
+                        >
+                            Inquire Now
+                        </Link>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Full-width Quote -->
+    <section class="bg-primary py-24 lg:py-36">
+        <div class="mx-auto max-w-4xl px-6 text-center lg:px-8">
+            <p
+                class="editorial-heading text-3xl font-semibold leading-snug text-primary-foreground sm:text-4xl lg:text-5xl"
+                use:splitText={{ delay: 0.3 }}
+            >
+                "Joining the Wealth Club transformed how I approach investing. The access to deal flow and the caliber of fellow members is simply unmatched."
+            </p>
+            <div class="mt-12" use:animate={{ type: 'fadeUp', delay: 0.6 }}>
+                <p class="text-sm font-medium text-primary-foreground/80">Jonathan R. Whitfield</p>
+                <p class="mt-1 text-xs text-primary-foreground/40">Premier Member since 2019</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Benefits Accordion -->
+    <section class="py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mb-16 max-w-2xl">
+                <p class="editorial-label mb-6" use:animate={{ type: 'fadeUp', delay: 0.1 }}>Member Benefits</p>
+                <h2
+                    class="editorial-heading text-4xl font-semibold text-foreground sm:text-5xl"
+                    use:animate={{ type: 'fadeUp', delay: 0.2 }}
+                >
+                    Everything that comes with membership
+                </h2>
+            </div>
+            <div use:animate={{ type: 'fadeUp', delay: 0.3 }}>
+                {#each benefits as b}
+                    <button
+                        class="accordion-row w-full text-left"
+                        onclick={() => (activeBenefit = activeBenefit === b.id ? null : b.id)}
+                    >
+                        <span class="text-sm font-medium text-foreground">{b.title}</span>
+                        <span class="shrink-0 text-lg font-light text-muted-foreground transition-transform duration-300 {activeBenefit === b.id ? 'rotate-45' : ''}">+</span>
+                    </button>
+                    {#if activeBenefit === b.id}
+                        <div class="pb-6 pt-2">
+                            <p class="max-w-2xl text-sm leading-relaxed text-muted-foreground">{b.desc}</p>
+                        </div>
+                    {/if}
+                {/each}
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Image + Text: Application Process -->
+    <section class="py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+                <div class="relative aspect-[4/5] overflow-hidden" use:animate={{ type: 'fadeRight', delay: 0.2 }}>
+                    <img
+                        src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1200"
+                        alt="Exclusive member event"
+                        class="h-full w-full object-cover"
+                        use:heroParallax={0.3}
+                    />
+                </div>
+                <div use:animate={{ type: 'fadeLeft', delay: 0.4 }}>
+                    <p class="editorial-label mb-6">Application Process</p>
+                    <h2 class="editorial-heading text-3xl font-semibold text-foreground sm:text-4xl">
+                        A considered path to membership
+                    </h2>
+                    <div class="mt-8 space-y-6 text-sm leading-relaxed text-muted-foreground">
+                        <p>
+                            Membership in the Wealth Club is extended by invitation or through a formal application process. We carefully review each candidate to ensure alignment with our community's values and investment philosophy.
+                        </p>
+                        <p>
+                            The process begins with a confidential inquiry, followed by a conversation with one of our senior partners. Approved members gain immediate access to our full suite of benefits, events, and investment opportunities.
+                        </p>
+                        <p>
+                            We welcome individuals and families who share our commitment to disciplined, long-term wealth creation and value the power of an exceptional peer network.
+                        </p>
+                    </div>
+                    <Link
+                        href="/contact-us"
+                        class="mt-10 inline-flex items-center justify-center border border-foreground px-8 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-foreground hover:text-background"
+                    >
+                        Begin Your Application
+                    </Link>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. CTA -->
+    <section class="border-t border-border/40 py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:items-center">
+                <h2
+                    class="editorial-heading text-3xl font-semibold text-foreground sm:text-4xl"
+                    use:animate={{ type: 'fadeUp', delay: 0.2 }}
+                >
+                    Apply for Wealth Club membership today.
+                </h2>
+                <div class="flex flex-col gap-4 sm:flex-row md:justify-end" use:animate={{ type: 'fadeUp', delay: 0.4 }}>
+                    <Link
+                        href="/contact-us"
+                        class="inline-flex items-center justify-center border border-foreground px-8 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-foreground hover:text-background"
+                    >
+                        Apply for Membership
+                    </Link>
+                    <Link
+                        href="/about"
+                        class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-muted-foreground underline decoration-muted-foreground/40 underline-offset-4 transition-colors hover:text-foreground"
+                    >
+                        Learn More
+                    </Link>
+                </div>
+            </div>
+        </div>
+    </section>
 </Layout>

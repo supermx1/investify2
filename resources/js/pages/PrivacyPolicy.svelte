@@ -1,38 +1,28 @@
-<script>
+<script lang="ts">
     import Layout from '@/components/frontend/Layout.svelte';
     import { SYSTEM } from '@/lib/store';
+    import { animate, splitText } from '@/lib/gsap';
 </script>
 
 <Layout>
-    <!-- Hero Section -->
-    <header class="relative bg-background-light dark:bg-background-dark pt-20 pb-16 overflow-hidden">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <span
-                class="inline-block py-1 px-3 rounded-full bg-accent-gold/10 text-accent-gold text-xs font-semibold tracking-wider uppercase mb-6 border border-accent-gold/20 animate-fade-in"
-            >
-                Legal
-            </span>
-            <h1 class="font-serif text-4xl md:text-5xl font-medium text-primary dark:text-white leading-tight mb-6 animate-fade-in">
-                Privacy Policy
-            </h1>
-            <p
-                class="text-lg text-gray-600 dark:text-gray-300 font-light leading-relaxed max-w-2xl mx-auto animate-fade-in"
-                style="animation-delay: 0.1s;"
-            >
+    <!-- Hero -->
+    <section class="border-b border-border/40 py-20 lg:py-28">
+        <div class="mx-auto max-w-3xl px-6 lg:px-8">
+            <p use:animate={{ type: 'fadeUp', delay: 0.1 }} class="editorial-label mb-6">Legal</p>
+            <h1 use:splitText={{ delay: 0.2 }} class="editorial-heading text-5xl font-semibold text-foreground sm:text-6xl">Privacy Policy</h1>
+            <p use:animate={{ type: 'fadeUp', delay: 0.6 }} class="mt-6 text-sm leading-relaxed text-muted-foreground">
                 We are committed to protecting your privacy and ensuring the security of your personal information.
             </p>
         </div>
-        <div class="absolute -z-10 -top-20 -right-20 w-96 h-96 bg-accent-gold/5 rounded-full blur-3xl"></div>
-    </header>
+    </section>
 
-    <!-- Content Section -->
-    <section class="py-16 bg-white dark:bg-primary/5">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="prose prose-lg prose-gray dark:prose-invert max-w-none">
-                <p class="lead text-xl text-gray-500 dark:text-gray-400 mb-10">
-                    Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </p>
-
+    <!-- Content -->
+    <section class="py-16 lg:py-24">
+        <div class="mx-auto max-w-3xl px-6 lg:px-8">
+            <p class="mb-10 text-xs text-muted-foreground">
+                Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
+            <div class="prose prose-sm prose-gray dark:prose-invert max-w-none">
                 <h3>1. Introduction</h3>
                 <p>
                     {$SYSTEM.company} ("we," "our," or "us") respects your privacy and is committed to protecting it through our compliance
@@ -43,10 +33,7 @@
                 <h3>2. Information We Collect</h3>
                 <p>We collect several types of information from and about users of our Website, including information:</p>
                 <ul>
-                    <li>
-                        By which you may be personally identified, such as name, postal address, e-mail address, or telephone number ("personal
-                        information");
-                    </li>
+                    <li>By which you may be personally identified, such as name, postal address, e-mail address, or telephone number ("personal information");</li>
                     <li>That is about you but individually does not identify you; and/or</li>
                     <li>About your internet connection, the equipment you use to access our Website, and usage details.</li>
                 </ul>
@@ -74,10 +61,7 @@
 
                 <h3>6. Contact Information</h3>
                 <p>
-                    To ask questions or comment about this privacy policy and our privacy practices, contact us via our <a
-                        href="/contact-us"
-                        class="text-accent-gold hover:underline">Contact Page</a
-                    >.
+                    To ask questions or comment about this privacy policy and our privacy practices, contact us via our <a href="/contact-us">Contact Page</a>.
                 </p>
             </div>
         </div>

@@ -1,245 +1,185 @@
 <script lang="ts">
     import Layout from '@/components/frontend/Layout.svelte';
-    import { onMount } from 'svelte';
+    import { Link } from '@inertiajs/svelte';
+    import { animate, splitText, heroParallax, magnetic } from '@/lib/gsap';
 
-    let mounted = $state(false);
-    onMount(() => {
-        mounted = true;
-    });
+    const pipelineStages = [
+        { label: 'Discovery', count: 14, color: 'bg-primary/20' },
+        { label: 'Pre-Clinical', count: 9, color: 'bg-primary/35' },
+        { label: 'Phase I', count: 7, color: 'bg-primary/50' },
+        { label: 'Phase II', count: 5, color: 'bg-primary/65' },
+        { label: 'Phase III', count: 3, color: 'bg-primary/80' },
+        { label: 'Approved', count: 2, color: 'bg-primary' },
+    ];
+
+    const focusAreas = [
+        { num: '01', title: 'Biotechnology', desc: 'Growth-stage biotech companies developing novel therapeutics, vaccines, and diagnostics targeting significant unmet medical need across oncology, immunology, and rare disease.' },
+        { num: '02', title: 'Medical Devices', desc: 'Innovative medtech platforms improving clinical outcomes through minimally invasive procedures, robotic surgery, and next-generation implantable technologies.' },
+        { num: '03', title: 'Genomics & Precision Medicine', desc: 'Next-generation sequencing, gene therapy, and personalised medicine platforms reshaping how we diagnose, treat, and prevent disease at the molecular level.' },
+        { num: '04', title: 'Digital Health', desc: 'AI-powered diagnostics, remote patient monitoring, and software platforms transforming healthcare delivery, access, and cost efficiency at scale.' },
+    ];
+
+    const stats = [
+        { value: '$800M', label: 'Deployed' },
+        { value: '32', label: 'Companies' },
+        { value: '3', label: 'FDA Approvals' },
+        { value: '12', label: 'Therapeutic Areas' },
+    ];
 </script>
 
 <Layout>
-    <!-- Hero Section -->
-    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-background-light dark:bg-background-dark">
-        <div class="absolute inset-0 z-0">
-            <div
-                class="absolute inset-0 bg-gradient-to-r from-background-light/95 via-background-light/80 to-transparent dark:from-background-dark/95 dark:via-background-dark/80 dark:to-transparent z-10"
-            ></div>
-            <img
-                src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=2000"
-                alt="Pharmaceutical Research"
-                class="w-full h-full object-cover"
-            />
-        </div>
-
-        <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl">
-                <span
-                    class="inline-block py-1 px-3 rounded-full bg-accent-gold/10 text-accent-gold text-xs font-semibold tracking-wider uppercase mb-6 border border-accent-gold/20 backdrop-blur-sm"
-                >
-                    Pharmaceutical Division
-                </span>
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-serif font-medium text-primary dark:text-white mb-6 leading-tight">
-                    Pharma <br />
-                    <span class="italic text-accent-gold">Insights.</span>
+    <!-- Hero -->
+    <section class="relative min-h-[80vh] overflow-hidden bg-primary">
+        <img
+            use:heroParallax={0.4}
+            src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80&w=1600"
+            alt="Pharmaceuticals laboratory"
+            class="absolute inset-0 h-full w-full object-cover opacity-40"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-primary/60"></div>
+        <div class="relative z-10 flex min-h-[80vh] flex-col justify-between px-6 pb-16 pt-24 lg:px-20">
+            <div>
+                <nav use:animate={{ type: 'fadeUp', delay: 0.1 }} class="mb-8 flex items-center gap-2 text-xs text-primary-foreground/40">
+                    <Link href="/" class="hover:text-primary-foreground/70 transition-colors">Home</Link>
+                    <span>/</span>
+                    <span class="text-primary-foreground/70">Pharmaceuticals</span>
+                </nav>
+                <p use:animate={{ type: 'fadeUp', delay: 0.2 }} class="editorial-label-light mb-6">Portfolio</p>
+                <h1 use:splitText={{ delay: 0.4 }} class="editorial-heading max-w-3xl text-5xl font-semibold text-primary-foreground sm:text-6xl lg:text-7xl">
+                    Investing in the Future of Human Health
                 </h1>
-                <p class="text-xl text-gray-600 dark:text-gray-300 font-light mb-10 leading-relaxed max-w-2xl">
-                    Pharmaceuticals have the power to transform lives and alleviate suffering, making them crucial for the betterment of society.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a
-                        href="/register"
-                        target="_blank"
-                        class="bg-primary hover:bg-primary-light dark:bg-accent-gold dark:hover:bg-accent-gold/90 text-white px-8 py-3.5 rounded-full text-base font-medium transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex items-center gap-2"
-                    >
-                        Invest Now
-                        <span class="material-icons text-sm">arrow_forward</span>
-                    </a>
-                    <a
-                        href="/contact-us"
-                        class="bg-white/50 dark:bg-white/5 hover:bg-white/80 dark:hover:bg-white/10 text-primary dark:text-white border border-primary/10 dark:border-white/10 backdrop-blur-sm px-8 py-3.5 rounded-full text-base font-medium transition-all flex items-center gap-2"
-                    >
-                        Contact Advisor
-                    </a>
-                </div>
             </div>
+            <p use:animate={{ type: 'fadeUp', delay: 0.8 }} class="max-w-md text-sm leading-relaxed text-primary-foreground/60">
+                Healthcare innovation represents one of the most compelling long-term investment opportunities. We partner with pioneers developing the next generation of life-changing therapies.
+            </p>
         </div>
-    </header>
+    </section>
 
-    <!-- Introduction Section -->
-    <section class="py-24 bg-white dark:bg-primary/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <span class="text-accent-gold font-bold text-sm tracking-wider uppercase mb-2 block">Leadership</span>
-                    <h2 class="font-serif text-3xl md:text-4xl text-primary dark:text-white mb-6">Simeon Acevedo</h2>
-                    <div class="h-1 w-20 bg-accent-gold mb-8"></div>
-                    <p class="text-xl text-gray-500 dark:text-gray-400 mb-6 italic font-serif">Head, Pharmaceutical Division</p>
-                    <div class="prose prose-lg dark:prose-invert">
-                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                            "The pharmaceutical sector is an industry that focuses on the research, development, and commercialisation of drugs for
-                            the prevention, treatment, and cure of diseases. It is a complex industry that involves various players such as
-                            pharmaceutical companies, research institutions, government bodies, and healthcare providers."
-                        </p>
-                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-                            The industry has been able to achieve significant milestones over the years, leading to a substantial improvement in the
-                            quality of life of people across the world.
-                        </p>
-                    </div>
-                </div>
-                <div class="relative">
-                    <div class="absolute -inset-4 bg-accent-gold/20 rounded-xl blur-lg transform rotate-2"></div>
+    <!-- Split intro -->
+    <section class="py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
+                <div use:animate={{ type: 'reveal' }} class="aspect-[4/3] overflow-hidden">
                     <img
-                        src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1200"
-                        alt="Pharmacists working together"
-                        class="relative rounded-xl shadow-2xl w-full h-auto object-cover aspect-[4/3] grayscale hover:grayscale-0 transition-all duration-700"
+                        src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=800"
+                        alt="Laboratory research"
+                        class="h-full w-full object-cover"
                     />
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Key Innovations -->
-    <section class="py-24 bg-background-light dark:bg-background-dark border-t border-primary/5 dark:border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-accent-gold font-bold text-sm tracking-wider uppercase mb-2 block">Our Focus</span>
-                <h2 class="font-serif text-3xl md:text-4xl text-primary dark:text-white mb-4">Key Innovations</h2>
-                <p class="text-gray-500 dark:text-gray-400 text-lg">
-                    We invest in companies driving breakthroughs that reshape healthcare and improve patient outcomes.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Drug Delivery -->
-                <div
-                    class="bg-white dark:bg-white/5 p-8 rounded-xl shadow-soft hover:shadow-soft-hover transition-all border border-gray-100 dark:border-white/5 group"
-                >
-                    <div
-                        class="w-14 h-14 bg-primary/5 dark:bg-white/10 rounded-full flex items-center justify-center mb-6 text-2xl text-primary dark:text-white group-hover:bg-accent-gold group-hover:text-white transition-colors"
-                    >
-                        <span class="material-icons">medication</span>
-                    </div>
-                    <h3 class="font-serif text-xl text-primary dark:text-white mb-4">Drug Delivery Systems</h3>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-                        Significant strides in developing delivery systems that are more effective, efficient, and less invasive, reducing side
-                        effects and improving compliance.
-                    </p>
-                </div>
-
-                <!-- Personalised Medicine -->
-                <div
-                    class="bg-white dark:bg-white/5 p-8 rounded-xl shadow-soft hover:shadow-soft-hover transition-all border border-gray-100 dark:border-white/5 group"
-                >
-                    <div
-                        class="w-14 h-14 bg-primary/5 dark:bg-white/10 rounded-full flex items-center justify-center mb-6 text-2xl text-primary dark:text-white group-hover:bg-accent-gold group-hover:text-white transition-colors"
-                    >
-                        <span class="material-icons">fingerprint</span>
-                    </div>
-                    <h3 class="font-serif text-xl text-primary dark:text-white mb-4">Personalised Medicine</h3>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-                        Advances in genomics enable tailoring treatments to individual patients based on their genetic makeup and lifestyle.
-                    </p>
-                </div>
-
-                <!-- Digital Health -->
-                <div
-                    class="bg-white dark:bg-white/5 p-8 rounded-xl shadow-soft hover:shadow-soft-hover transition-all border border-gray-100 dark:border-white/5 group"
-                >
-                    <div
-                        class="w-14 h-14 bg-primary/5 dark:bg-white/10 rounded-full flex items-center justify-center mb-6 text-2xl text-primary dark:text-white group-hover:bg-accent-gold group-hover:text-white transition-colors"
-                    >
-                        <span class="material-icons">monitor_heart</span>
-                    </div>
-                    <h3 class="font-serif text-xl text-primary dark:text-white mb-4">Digital Health</h3>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-                        Integrating telemedicine, wearables, and health apps to enable remote monitoring and early disease detection.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Future Opportunities & Case Study -->
-    <section class="py-24 bg-primary text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0 0 C 50 100 80 100 100 0 Z" fill="currentColor" />
-            </svg>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                <div>
-                    <span class="text-accent-gold font-bold text-sm tracking-wider uppercase mb-2 block">Track Record</span>
-                    <h2 class="font-serif text-3xl md:text-4xl mb-6">Success Stories</h2>
-                    <p class="text-gray-300 text-lg leading-relaxed mb-6">
-                        We invest in companies with proven innovation. A notable success was our investment in a biotech firm developing a treatment
-                        for Pompe disease, a rare genetic disorder.
-                    </p>
-                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 mb-8">
-                        <p class="italic text-gray-200 mb-4">
-                            "Our investment allowed the company to complete clinical trials... resulting in a successful acquisition by a larger
-                            pharmaceutical company for a profit of over $50 million."
+                <div use:animate={{ type: 'fadeRight', delay: 0.2 }}>
+                    <p class="editorial-label mb-6">Science-Led Investing</p>
+                    <h2 class="editorial-heading text-4xl font-semibold text-foreground sm:text-5xl">
+                        Deep therapeutic expertise meets institutional rigour
+                    </h2>
+                    <div class="mt-8 space-y-6">
+                        <p class="text-sm leading-relaxed text-muted-foreground max-w-md">
+                            Our investment team includes former physicians, research scientists, and regulatory specialists who evaluate clinical viability, intellectual property strength, and commercial potential at every stage.
+                        </p>
+                        <p class="text-sm leading-relaxed text-muted-foreground max-w-md">
+                            We invest across therapeutic areas and development stages, managing binary trial risk through disciplined portfolio construction and deep scientific due diligence.
                         </p>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10">
-                        <div class="text-4xl font-bold text-accent-gold mb-2">30%+</div>
-                        <div class="text-sm text-gray-300">Return to clients from generic drug manufacturer investment</div>
-                    </div>
-                </div>
-
-                <div>
-                    <span class="text-accent-gold font-bold text-sm tracking-wider uppercase mb-2 block">Future Outlook</span>
-                    <h2 class="font-serif text-3xl md:text-4xl mb-6">Areas of Opportunity</h2>
-                    <ul class="space-y-6">
-                        <li class="flex items-start">
-                            <span class="bg-accent-gold/20 p-2 rounded-full mr-4 mt-1">
-                                <span class="material-icons text-accent-gold text-sm">science</span>
-                            </span>
-                            <div>
-                                <h3 class="text-xl font-serif mb-1">Drug Discovery</h3>
-                                <p class="text-gray-400 text-sm">Continued investment to identify new drug candidates and bring them to market.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="bg-accent-gold/20 p-2 rounded-full mr-4 mt-1">
-                                <span class="material-icons text-accent-gold text-sm">biotech</span>
-                            </span>
-                            <div>
-                                <h3 class="text-xl font-serif mb-1">Biologics</h3>
-                                <p class="text-gray-400 text-sm">
-                                    Drugs made from living organisms, increasingly used to treat cancer and autoimmune disorders.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="bg-accent-gold/20 p-2 rounded-full mr-4 mt-1">
-                                <span class="material-icons text-accent-gold text-sm">public</span>
-                            </span>
-                            <div>
-                                <h3 class="text-xl font-serif mb-1">Emerging Markets</h3>
-                                <p class="text-gray-400 text-sm">
-                                    Significant opportunities in markets like China, India, and Brazil due to large populations.
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
+                    <Link href="/contact-us" class="mt-8 inline-flex items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all">
+                        Learn about our approach →
+                    </Link>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action -->
-    <section class="py-24 bg-white dark:bg-primary/5">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="font-serif text-3xl md:text-5xl text-primary dark:text-white mb-6">Invest in the Future of Health</h2>
-            <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 leading-relaxed">
-                Join us in supporting breakthrough medical advancements while building a robust investment portfolio.
+    <!-- Pipeline visualization -->
+    <section class="border-y border-border/40 bg-muted/10 py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <p use:animate={{ type: 'fadeUp' }} class="editorial-label mb-4">Investment Pipeline</p>
+            <h2 use:animate={{ type: 'fadeUp', delay: 0.1 }} class="editorial-heading mb-16 max-w-2xl text-3xl font-semibold text-foreground sm:text-4xl">
+                Active portfolio across every stage of development
+            </h2>
+
+            <!-- Pipeline track -->
+            <div use:animate={{ type: 'stagger', stagger: 0.1 }} class="relative">
+                <!-- Connecting line -->
+                <div class="absolute left-0 right-0 top-1/2 hidden h-px -translate-y-8 bg-border/60 md:block"></div>
+
+                <div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-6">
+                    {#each pipelineStages as stage, i}
+                        <div class="relative flex flex-col items-center text-center">
+                            <!-- Stage dot and count -->
+                            <div class="relative z-10 mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-primary/30 bg-background transition-all hover:border-primary hover:shadow-lg">
+                                <span class="text-xl font-semibold text-foreground">{stage.count}</span>
+                            </div>
+                            <!-- Stage bar -->
+                            <div class="mb-3 h-1.5 w-full rounded-full bg-border/30">
+                                <div class="{stage.color} h-full rounded-full" style="width: {Math.round(((i + 1) / pipelineStages.length) * 100)}%"></div>
+                            </div>
+                            <!-- Label -->
+                            <p class="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground">{stage.label}</p>
+                        </div>
+                    {/each}
+                </div>
+
+                <!-- Arrow indicator -->
+                <div class="mt-8 flex items-center justify-center gap-2 text-xs text-muted-foreground/60">
+                    <span class="h-px w-8 bg-muted-foreground/30"></span>
+                    <span class="uppercase tracking-[0.2em]">Development Progression</span>
+                    <span class="h-px w-8 bg-muted-foreground/30"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Focus areas -->
+    <section class="py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <p use:animate={{ type: 'fadeUp' }} class="editorial-label mb-16">Investment Focus Areas</p>
+            <div use:animate={{ type: 'stagger', stagger: 0.1 }} class="grid grid-cols-1 gap-10 md:grid-cols-2">
+                {#each focusAreas as area}
+                    <div class="border-l-2 border-primary/30 pl-6 transition-colors hover:border-primary">
+                        <span class="text-xs font-medium text-muted-foreground/50">{area.num}</span>
+                        <h3 class="mt-1 text-lg font-semibold text-foreground">{area.title}</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-muted-foreground">{area.desc}</p>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </section>
+
+    <!-- Dark stats + quote -->
+    <section class="bg-primary py-24 lg:py-36">
+        <div class="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+            <p use:splitText={{ delay: 0.3 }} class="editorial-heading text-2xl font-semibold text-primary-foreground sm:text-3xl lg:text-4xl">
+                "The convergence of biology and technology is creating a once-in-a-generation opportunity to improve human health and generate exceptional returns."
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                    href="/register"
-                    target="_blank"
-                    class="bg-primary hover:bg-primary-light dark:bg-accent-gold dark:hover:bg-accent-gold/90 text-white px-10 py-4 rounded-full text-lg font-medium transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
-                >
-                    Get Started Today
-                </a>
-                <a
-                    href="/contact-us"
-                    class="bg-white dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10 text-primary dark:text-white border border-gray-200 dark:border-white/10 px-10 py-4 rounded-full text-lg font-medium transition-all"
-                >
-                    Speak with an Advisor
-                </a>
+            <p use:animate={{ type: 'fadeUp', delay: 0.6 }} class="mt-6 text-xs uppercase tracking-[0.2em] text-primary-foreground/40">
+                — Dr. Sarah Chen, Head of Life Sciences
+            </p>
+        </div>
+        <div class="mx-auto mt-20 max-w-5xl px-6 lg:px-8">
+            <div use:animate={{ type: 'stagger', stagger: 0.1 }} class="grid grid-cols-2 gap-8 border-t border-primary-foreground/10 pt-12 md:grid-cols-4">
+                {#each stats as stat}
+                    <div class="text-center">
+                        <p class="text-3xl font-semibold text-primary-foreground lg:text-4xl">{stat.value}</p>
+                        <p class="mt-2 text-xs uppercase tracking-[0.15em] text-primary-foreground/40">{stat.label}</p>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section use:animate={{ type: 'fadeUp' }} class="py-24 lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:items-center">
+                <h2 class="editorial-heading text-3xl font-semibold text-foreground sm:text-4xl">
+                    Gain exposure to healthcare's most innovative companies.
+                </h2>
+                <div class="flex flex-col gap-4 sm:flex-row md:justify-end">
+                    <Link href="/register" class="inline-flex items-center justify-center border border-foreground px-8 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-foreground hover:text-background">
+                        Start Investing
+                    </Link>
+                    <Link href="/contact-us" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40 hover:text-foreground transition-colors">
+                        Talk to an Advisor →
+                    </Link>
+                </div>
             </div>
         </div>
     </section>
