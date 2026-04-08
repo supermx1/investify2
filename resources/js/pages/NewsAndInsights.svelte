@@ -2,69 +2,7 @@
     import Layout from '@/components/frontend/Layout.svelte';
     import { Link } from '@inertiajs/svelte';
     import { animate, splitText, heroParallax } from '@/lib/gsap';
-
-    const articles = [
-        {
-            id: 1,
-            title: 'Q4 Global Market Outlook: Navigating Volatility',
-            category: 'Market Updates',
-            date: 'Oct 24, 2023',
-            readTime: '5 min read',
-            author: 'Jonathan Sterling, CFA',
-            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800',
-            excerpt: 'As we approach year-end, our investment committee analyzes key macroeconomic indicators and identifies resilient sectors for portfolio allocation.',
-        },
-        {
-            id: 2,
-            title: 'Estate Planning for Multi-Generational Wealth',
-            category: 'Wealth Strategy',
-            date: 'Oct 18, 2023',
-            readTime: '8 min read',
-            author: 'Sarah Jenkins, J.D.',
-            image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800',
-            excerpt: 'Strategies for preserving your legacy and minimizing tax liabilities when transferring assets to the next generation.',
-        },
-        {
-            id: 3,
-            title: 'The Rise of Sustainable Private Equity',
-            category: 'Global Trends',
-            date: 'Oct 10, 2023',
-            readTime: '6 min read',
-            author: 'Marcus Thorne',
-            image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
-            excerpt: 'Examining how ESG criteria are reshaping private market valuations and creating new opportunities for conscientious investors.',
-        },
-        {
-            id: 4,
-            title: 'AI in Portfolio Management',
-            category: 'Global Trends',
-            date: 'Sep 28, 2023',
-            readTime: '4 min read',
-            author: 'Dr. Elena Rostova',
-            image: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&q=80&w=800',
-            excerpt: 'How artificial intelligence is enhancing risk assessment models and uncovering non-obvious correlations in global markets.',
-        },
-        {
-            id: 5,
-            title: 'Prime Commercial Real Estate Outlook',
-            category: 'Market Updates',
-            date: 'Sep 15, 2023',
-            readTime: '7 min read',
-            author: 'David Chen',
-            image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&q=80&w=800',
-            excerpt: 'An analysis of cap rates in major metropolitan areas and the shifting landscape of commercial office space investment.',
-        },
-        {
-            id: 6,
-            title: 'Strategic Philanthropy: Impact & Tax Efficiency',
-            category: 'Wealth Strategy',
-            date: 'Sep 02, 2023',
-            readTime: '6 min read',
-            author: 'Olivia Vance',
-            image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&q=80&w=800',
-            excerpt: 'Maximizing the impact of your charitable giving through Donor Advised Funds and private foundations.',
-        },
-    ];
+    import { articles } from '@/lib/articles';
 
     const allCategories = ['All', 'Market Updates', 'Wealth Strategy', 'Global Trends'];
     let activeFilter = $state('All');
@@ -118,16 +56,18 @@
             {#if displayedArticles.length > 0}
                 {@const featured = displayedArticles[0]}
                 <article use:animate={{ type: 'fadeUp' }} class="group mb-16 grid grid-cols-1 gap-8 border-b border-border/40 pb-16 lg:grid-cols-2">
-                    <div class="aspect-[16/10] overflow-hidden">
+                    <Link href={`/news-and-insight/${featured.id}`} class="block aspect-[16/10] overflow-hidden">
                         <img
                             src={featured.image}
                             alt={featured.title}
                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
-                    </div>
+                    </Link>
                     <div class="flex flex-col justify-center">
                         <p class="editorial-label mb-4">{featured.category}</p>
-                        <h2 class="editorial-heading text-3xl font-semibold text-foreground sm:text-4xl">{featured.title}</h2>
+                        <Link href={`/news-and-insight/${featured.id}`}>
+                            <h2 class="editorial-heading text-3xl font-semibold text-foreground sm:text-4xl hover:text-primary transition-colors">{featured.title}</h2>
+                        </Link>
                         <p class="mt-4 text-sm leading-relaxed text-muted-foreground">{featured.excerpt}</p>
                         <div class="mt-6 flex items-center gap-4 text-xs text-muted-foreground">
                             <span>{featured.date}</span>
@@ -136,9 +76,9 @@
                             <span>·</span>
                             <span>{featured.author}</span>
                         </div>
-                        <a href="#" class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all">
+                        <Link href={`/news-and-insight/${featured.id}`} class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all">
                             Learn more →
-                        </a>
+                        </Link>
                     </div>
                 </article>
             {/if}
@@ -147,7 +87,7 @@
             {#if displayedArticles.length > 1}
                 <div use:animate={{ type: 'stagger', stagger: 0.12 }} class="grid gap-10 md:grid-cols-3">
                     {#each displayedArticles.slice(1) as article (article.id)}
-                        <article class="group cursor-pointer">
+                        <Link href={`/news-and-insight/${article.id}`} class="group block">
                             <div class="aspect-[16/10] overflow-hidden">
                                 <img
                                     src={article.image}
@@ -165,7 +105,7 @@
                                     <span>{article.readTime}</span>
                                 </div>
                             </div>
-                        </article>
+                        </Link>
                     {/each}
                 </div>
             {/if}

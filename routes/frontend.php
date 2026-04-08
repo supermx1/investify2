@@ -28,6 +28,10 @@ Route::inertia('/exchange-traded-funds', 'ExchangeTradedFunds')->name('exchange-
 Route::inertia('/pharmaceuticals', 'Pharmaceuticals')->name('pharmaceuticals');
 Route::inertia('/responsible-stewardship', 'ResponsibleStewards')->name('responsible-stewards');
 Route::inertia('/news-and-insights', 'NewsAndInsights')->name('news-and-insights');
+
+Route::get('/news-and-insight/{id}', function ($id) {
+    return Inertia::render('ArticleDetail', ['id' => (int)$id]);
+})->name('article.detail');
 Route::inertia('/diversity-inclusion', 'DiversityInclusion')->name('diversity-inclusion');
 Route::inertia('/esg-responsible-investment', 'ESGResponsibleInvestment')->name('esg-responsible-investment');
 Route::inertia('/sustainability', 'Sustainability')->name('sustainability');
