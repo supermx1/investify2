@@ -3,6 +3,7 @@
     import { Link } from '@inertiajs/svelte';
     import { animate, splitText, heroParallax } from '@/lib/gsap';
     import { articles, getArticleById } from '@/lib/articles';
+    import { ArrowLeft, ArrowRight } from 'lucide-svelte';
 
     let { id }: { id: number } = $props();
 
@@ -23,7 +24,8 @@
             <h1 class="editorial-heading text-4xl font-semibold text-foreground">This article doesn't exist</h1>
             <p class="mt-4 text-sm text-muted-foreground">The article you're looking for may have been moved or removed.</p>
             <Link href="/news-and-insights" class="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all">
-                ← Back to News &amp; Insights
+                <ArrowLeft size={16} class="flex-shrink-0" />
+                Back to News &amp; Insights
             </Link>
         </section>
     {:else}
@@ -88,7 +90,7 @@
                         <div use:animate={{ type: 'fadeUp' }} class="mt-20 flex items-center justify-between border-t border-border/40 pt-10 gap-4">
                             {#if prevArticle}
                                 <Link href={`/news-and-insight/${prevArticle.id}`} class="group flex items-start gap-3 max-w-xs">
-                                    <span class="text-muted-foreground group-hover:text-foreground transition-colors mt-0.5">←</span>
+                                    <ArrowLeft size={16} class="text-muted-foreground group-hover:text-foreground transition-colors flex-shrink-0 mt-0.5" />
                                     <div>
                                         <p class="text-xs text-muted-foreground mb-1 uppercase tracking-widest">Previous</p>
                                         <p class="text-sm font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2">{prevArticle.title}</p>
@@ -104,7 +106,7 @@
                                         <p class="text-xs text-muted-foreground mb-1 uppercase tracking-widest">Next</p>
                                         <p class="text-sm font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2">{nextArticle.title}</p>
                                     </div>
-                                    <span class="text-muted-foreground group-hover:text-foreground transition-colors mt-0.5">→</span>
+                                    <ArrowRight size={16} class="text-muted-foreground group-hover:text-foreground transition-colors flex-shrink-0 mt-0.5" />
                                 </Link>
                             {/if}
                         </div>
@@ -136,7 +138,8 @@
                                 href="/contact-us"
                                 class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-foreground underline underline-offset-4 decoration-primary-foreground/40 hover:decoration-primary-foreground transition-all"
                             >
-                                Contact us →
+                                Contact us
+                                <ArrowRight size={16} class="flex-shrink-0" />
                             </Link>
                         </div>
                     </aside>

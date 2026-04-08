@@ -3,6 +3,7 @@
     import { Link } from '@inertiajs/svelte';
     import { SYSTEM } from '@/lib/store';
     import { animate, splitText, heroParallax, magnetic } from '@/lib/gsap';
+    import { ArrowRight } from 'lucide-svelte';
 
     let activeDivision = $state<string | null>(null);
 
@@ -139,7 +140,7 @@
                 <h2 class="editorial-heading text-3xl font-semibold text-foreground sm:text-4xl">Ready to start your investment journey?</h2>
                 <div class="flex flex-col gap-4 sm:flex-row md:justify-end">
                     <Link href="/register" class="inline-flex items-center justify-center border border-foreground px-8 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-foreground hover:text-background">Start Investing</Link>
-                    <Link href="/contact-us" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40 hover:text-foreground transition-colors">Talk to an Advisor →</Link>
+                    <Link href="/contact-us" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-medium text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40 hover:text-foreground transition-colors">Talk to an Advisor <ArrowRight size={16} class="flex-shrink-0" /></Link>
                 </div>
             </div>
         </div>

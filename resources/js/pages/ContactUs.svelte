@@ -2,7 +2,7 @@
     import Layout from '@/components/frontend/Layout.svelte';
     import { useForm } from '@inertiajs/svelte';
     import { SYSTEM } from '@/lib/store';
-    import { Loader } from 'lucide-svelte';
+    import { Loader, ArrowRight } from 'lucide-svelte';
     import { toast } from 'svelte-sonner';
     import { animate, splitText, heroParallax, magnetic } from '@/lib/gsap';
 
@@ -164,7 +164,7 @@
                                     <Loader class="h-4 w-4 animate-spin" />
                                     Sending...
                                 {:else}
-                                    Send a request →
+                                    Send a request <ArrowRight size={16} class="flex-shrink-0" />
                                 {/if}
                             </button>
                         </div>

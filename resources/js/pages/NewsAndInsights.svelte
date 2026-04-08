@@ -3,6 +3,7 @@
     import { Link } from '@inertiajs/svelte';
     import { animate, splitText, heroParallax } from '@/lib/gsap';
     import { articles } from '@/lib/articles';
+    import { ArrowRight } from 'lucide-svelte';
 
     const allCategories = ['All', 'Market Updates', 'Wealth Strategy', 'Global Trends'];
     let activeFilter = $state('All');
@@ -77,7 +78,8 @@
                             <span>{featured.author}</span>
                         </div>
                         <Link href={`/news-and-insight/${featured.id}`} class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all">
-                            Learn more →
+                            Learn more
+                            <ArrowRight size={16} class="flex-shrink-0" />
                         </Link>
                     </div>
                 </article>
@@ -115,9 +117,10 @@
                 <div class="mt-16 text-center">
                     <button
                         onclick={() => (showAll = true)}
-                        class="text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all"
+                        class="inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all"
                     >
-                        Load more →
+                        Load more
+                        <ArrowRight size={16} class="flex-shrink-0" />
                     </button>
                 </div>
             {/if}

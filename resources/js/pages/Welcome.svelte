@@ -3,6 +3,7 @@
     import { Link } from '@inertiajs/svelte';
     import { SYSTEM } from '@/lib/store';
     import { animate, splitText, heroParallax, magnetic } from '@/lib/gsap';
+    import { ArrowRight } from 'lucide-svelte';
 
     let activeAccordion = $state<string | null>('private-markets');
 
@@ -40,7 +41,8 @@
                         {$SYSTEM.siteName} is a Regulated Fund Manager that invests in public and private markets across the capital structure.
                     </p>
                     <Link href="/contact-us" class="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary-foreground underline underline-offset-4 decoration-primary-foreground/40 hover:decoration-primary-foreground transition-all">
-                        Get in touch →
+                        Get in touch
+                        <ArrowRight size={16} class="flex-shrink-0" />
                     </Link>
                 </div>
                 <div use:animate={{ type: 'fade', delay: 1 }} class="text-right">
@@ -115,7 +117,7 @@
                                     <p class="text-sm leading-relaxed text-primary-foreground/60">{sector.desc}</p>
                                     <Link href="/contact-us" class="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-primary-foreground/60 underline underline-offset-4 hover:text-primary-foreground transition-colors">
                                         Get in touch
-                                        <span class="material-icons text-xs">arrow_forward</span>
+                                        <ArrowRight size={14} class="flex-shrink-0" />
                                     </Link>
                                 </div>
                             {/if}
@@ -163,8 +165,9 @@
                 We primarily invest in North America and Western Europe and are also open to exploring opportunities in the rest of the world
             </p>
             <div use:animate={{ type: 'fadeUp', delay: 0.4 }} class="mt-10 text-center">
-                <Link href="/contact-us" class="text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all">
-                    Get in touch →
+                <Link href="/contact-us" class="inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all">
+                    Get in touch
+                    <ArrowRight size={16} class="flex-shrink-0" />
                 </Link>
             </div>
         </div>
@@ -181,7 +184,8 @@
                         We place a high value on reputation and integrity, aiming to cultivate lasting relationships with founders, family owners, management teams, and co-investors.
                     </p>
                     <Link href="/wealth-management" class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all">
-                        Go to portfolio →
+                        Go to portfolio
+                        <ArrowRight size={16} class="flex-shrink-0" />
                     </Link>
                 </div>
 
@@ -232,7 +236,8 @@
                         </div>
                         <div class="pt-2">
                             <button use:magnetic={0.15} type="submit" class="inline-flex items-center gap-2 text-sm font-medium text-primary-foreground underline underline-offset-4 decoration-primary-foreground/40 hover:decoration-primary-foreground transition-all">
-                                Send a request →
+                                Send a request
+                                <ArrowRight size={16} class="flex-shrink-0" />
                             </button>
                         </div>
                     </form>

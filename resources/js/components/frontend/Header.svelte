@@ -3,6 +3,7 @@
     import { SYSTEM } from '@/lib/store';
     import { page } from '@inertiajs/svelte';
     import type { User } from '@/types';
+    import { ArrowRight } from 'lucide-svelte';
 
     const user = $page.props.auth.user as User;
 
@@ -60,8 +61,9 @@
                             {/each}
                         </div>
                         <div class="border-t border-border px-5 py-3">
-                            <Link href="/private-wealth" class="text-xs text-muted-foreground transition-colors hover:text-foreground">
-                                Private Wealth Services →
+                            <Link href="/private-wealth" class="inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground">
+                                Private Wealth Services
+                                <ArrowRight size={12} class="flex-shrink-0" />
                             </Link>
                         </div>
                     </div>
@@ -107,8 +109,9 @@
                         Private Area
                     </a>
                 {/if}
-                <Link href="/contact-us" class="text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground transition-colors hover:decoration-foreground">
-                    Contact us →
+                <Link href="/contact-us" class="inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground transition-colors hover:decoration-foreground">
+                    Contact us
+                    <ArrowRight size={16} class="flex-shrink-0" />
                 </Link>
             </div>
 
@@ -173,7 +176,7 @@
                     {:else}
                         <a href="/login" class="text-sm text-muted-foreground hover:text-foreground" onclick={closeMenu}>Private Area</a>
                     {/if}
-                    <Link href="/contact-us" class="text-sm font-medium text-foreground" onclick={closeMenu}>Contact us →</Link>
+                    <Link href="/contact-us" class="inline-flex items-center gap-1.5 text-sm font-medium text-foreground" onclick={closeMenu}>Contact us <ArrowRight size={16} class="flex-shrink-0" /></Link>
                 </div>
             </div>
         </div>

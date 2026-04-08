@@ -2,6 +2,7 @@
     import Layout from '@/components/frontend/Layout.svelte';
     import { Link } from '@inertiajs/svelte';
     import { animate, splitText, heroParallax } from '@/lib/gsap';
+    import { ArrowRight } from 'lucide-svelte';
 
     let activeItem = $state<string | null>(null);
 
@@ -136,7 +137,7 @@
                         Learn about ESG
                     </Link>
                     <Link href="/contact-us" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40 hover:text-foreground transition-colors">
-                        Contact Us →
+                        Contact Us <ArrowRight size={16} class="flex-shrink-0" />
                     </Link>
                 </div>
             </div>

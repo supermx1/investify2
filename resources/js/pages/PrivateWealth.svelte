@@ -2,6 +2,7 @@
     import Layout from '@/components/frontend/Layout.svelte';
     import { Link } from '@inertiajs/svelte';
     import { animate, splitText, heroParallax, magnetic } from '@/lib/gsap';
+    import { ArrowRight } from 'lucide-svelte';
 
     let activeService = $state<string | null>(null);
 
@@ -190,7 +191,7 @@
                     Request a Meeting
                 </Link>
                 <Link href="/register" class="inline-flex items-center justify-center px-10 py-4 text-sm font-medium text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40 hover:text-foreground transition-colors">
-                    Open an Account →
+                    Open an Account <ArrowRight size={16} class="flex-shrink-0" />
                 </Link>
             </div>
         </div>

@@ -2,6 +2,7 @@
     import Layout from '@/components/frontend/Layout.svelte';
     import { Link } from '@inertiajs/svelte';
     import { animate, splitText, heroParallax, magnetic } from '@/lib/gsap';
+    import { ArrowRight } from 'lucide-svelte';
 
     const products = [
         { num: '01', title: 'Global Equities', desc: 'Long-only and long/short equity strategies across developed and emerging markets, managed by sector specialists.', metric: '+14.2%', metricLabel: '5yr CAGR' },
@@ -199,7 +200,7 @@
                         Start Investing
                     </Link>
                     <Link href="/contact-us" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40 transition-colors hover:text-foreground">
-                        Talk to an Advisor →
+                        Talk to an Advisor <ArrowRight size={16} class="flex-shrink-0" />
                     </Link>
                 </div>
             </div>

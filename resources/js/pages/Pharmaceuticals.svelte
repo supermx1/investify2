@@ -2,6 +2,7 @@
     import Layout from '@/components/frontend/Layout.svelte';
     import { Link } from '@inertiajs/svelte';
     import { animate, splitText, heroParallax, magnetic } from '@/lib/gsap';
+    import { ArrowRight } from 'lucide-svelte';
 
     const pipelineStages = [
         { label: 'Discovery', count: 14, color: 'bg-primary/20' },
@@ -80,7 +81,7 @@
                         </p>
                     </div>
                     <Link href="/contact-us" class="mt-8 inline-flex items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-all">
-                        Learn about our approach →
+                        Learn about our approach <ArrowRight size={16} class="flex-shrink-0" />
                     </Link>
                 </div>
             </div>
@@ -176,8 +177,9 @@
                     <Link href="/register" class="inline-flex items-center justify-center border border-foreground px-8 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-foreground hover:text-background">
                         Start Investing
                     </Link>
-                    <Link href="/contact-us" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40 hover:text-foreground transition-colors">
-                        Talk to an Advisor →
+                    <Link href="/contact-us" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-medium text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40 hover:text-foreground transition-colors">
+                        Talk to an Advisor
+                        <ArrowRight size={16} class="flex-shrink-0" />
                     </Link>
                 </div>
             </div>
